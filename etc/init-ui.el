@@ -12,9 +12,13 @@
     (setq display-line-numbers-type 'absolute)
     (global-display-line-numbers-mode t))
 
-;;
+;;光标变成竖线(仅GUI)
+(setq-default cursor-type 'bar)
+
+;;高亮括号
 (show-paren-mode 1)
 
+;;上下保留3行
 (setq scrol-margin 3)
 
 
