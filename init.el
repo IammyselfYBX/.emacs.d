@@ -2,4 +2,5 @@
 (add-to-list 'load-path
 	     (expand-file-name (concat user-emacs-directory "etc")))
 
-(require 'start-up)
+(require 'startup)
+(require 'init-ui)
