@@ -5,7 +5,19 @@
 ;;为了项目管理的统一化，也可以用如下的use-package写法：
 ;;(use-package emacs :config (defalias 'yes-or-no-p 'y-or-n-p))
 
+;;=========================================
+;; 分屏
+;;=========================================
+(global-set-key (kbd "S-<left>") 'split-window-horizontally)
+(global-set-key (kbd "S-<right>") 'split-window-horizontally)
+(global-set-key (kbd "S-<down>") 'split-window-horizontally)
+(global-set-key (kbd "S-<up>") 'split-window-below)
 
+;;修改分屏大小
+(global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
+(global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
+(global-set-key (kbd "S-C-<down>") 'shrink-window)
+(global-set-key (kbd "S-C-<up>") 'enlarge-window)
 
 
 (provide 'custom.el)
