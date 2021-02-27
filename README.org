@@ -10,7 +10,7 @@ Emacs的配置目录
 ** 文件结构 
 #+begin_src shell
 etc/              ## 配置文件
-├── custom.el     # 使用图形界面自动生成的文件(没有自己手动创建)
+├── gui-custom.el # 使用图形界面自动生成的文件(没有自己手动创建)
 ├── init-elpa.el  # 初始化 软件源
 ├── init-ui.el    # 初始化 UI界面
 ├── my-use-package.el # 使用 use-package 安装的软件包

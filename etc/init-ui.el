@@ -5,6 +5,13 @@
 ;;关闭启动界面
 (setq inhibit-startup-screen t)
 
+;;设置行号
+(use-package emacs
+    :config
+    ;;(setq display-line-numbers-type 'relative)
+    (setq display-line-numbers-type 'absolute)
+    (global-display-line-numbers-mode t))
+
 
 
 (provide 'init-ui)

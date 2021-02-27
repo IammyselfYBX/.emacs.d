@@ -22,4 +22,13 @@
     (setq sml/theme 'respectful)
     (sml/setup))
 
+;;=============================================
+;; 性能
+;;==============================================
+(use-package benchmark-init
+  :init (benchmark-init/activate)
+  :hook (after-init . benchmark-init/deactivate))
+
+
+
 (provide 'my-use-package)
