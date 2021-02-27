@@ -12,6 +12,11 @@
     (setq display-line-numbers-type 'absolute)
     (global-display-line-numbers-mode t))
 
+;;
+(show-paren-mode 1)
+
+(setq scrol-margin 3)
+
 
 
 (provide 'init-ui)
