@@ -59,6 +59,20 @@
   :config (setq swiper-action-recenter t
                 swiper-include-line-number-in-search t))
 
+;;显示在左下角的 MiniBuffer 移动视线范围大，移动到中央位置
+;; https://github.com/tumashu/ivy-posframe
+;; 仅在 GUI 才会有用
+;; (use-package ivy-posframe
+;;   :init
+;;   (setq ivy-posframe-display-functions-alist
+;;     '((swiper . ivy-posframe-display-at-point)
+;;       (complete-symbol . ivy-posframe-display-at-point)
+;;       (counsel-M-x . ivy-posframe-display-at-frame-center)
+;;       (counsel-find-file . ivy-posframe-display-at-frame-center)
+;;       (ivy-switch-buffer . ivy-posframe-display-at-frame-center)
+;;       (t . ivy-posframe-display-at-frame-center)))
+;;   (ivy-posframe-mode 1))
+
 
 
 ;;======================================
@@ -83,8 +97,23 @@
   (push '(company-semantic :with company-yasnippet) company-backends)
   :hook ((after-init . global-company-mode)))
 
+;;=====================================
+;; 语法检查
+;;=====================================
+(use-package flycheck ;;全局
+  :hook (after-init . global-flycheck-mode))
+;;只在编程语言下启用
+;;(use-package flycheck
+;;  :hook (prog-mode . flycheck-mode))
 
 
+
+;;=====================================
+;; 辅助记忆
+;;=====================================
+(use-package which-key
+  :defer nil
+  :config (which-key-mode))
 
 
 
