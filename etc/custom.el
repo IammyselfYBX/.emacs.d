@@ -18,6 +18,8 @@
 (global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
 (global-set-key (kbd "S-C-<down>") 'shrink-window)
 (global-set-key (kbd "S-C-<up>") 'enlarge-window)
+;;通过 ace-window 可快速进行窗口间的跳转
+;;  使用 M-o 打开ace-window
 
 
 (provide 'custom.el)

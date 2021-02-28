@@ -29,6 +29,13 @@
   :init (benchmark-init/activate)
   :hook (after-init . benchmark-init/deactivate))
 
+;;=====================================
+;; 分屏
+;;=====================================
+(use-package ace-window
+    :bind (("M-o" . 'ace-window)))
+
+
 ;;============================================
 ;;文本编辑之强化搜索
 ;;===========================================
@@ -76,8 +83,9 @@
 
 
 ;;======================================
-;; 补全
+;;自动补全，定义跳转，查找所有引用 
 ;;=====================================
+;; 补全
 (use-package company
   :config
   (setq company-dabbrev-code-everywhere t  ;;任何情况都补全
@@ -97,6 +105,51 @@
   (push '(company-semantic :with company-yasnippet) company-backends)
   :hook ((after-init . global-company-mode)))
 
+;;lsp
+(use-package lsp-mode
+  :init
+  ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
+  (setq lsp-keymap-prefix "C-c l")
+  :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
+         ;;(XXX-mode . lsp)
+	 ;;全部编程语言(prog-mode . lsp)
+	 ;; lsp 是 emacs 启动就启用
+	 ;; lsp-deferred 是进入某个模式才启用
+	 ;;如果想 推迟加载使用(XXX-mode . lsp-deferred)
+	 (c++-mode .lsp-deferred)
+	 (c-mode . lsp-deferred)
+	 (java-mode .lsp-deferred)
+         ;; if you want which-key integration
+         (lsp-mode . lsp-enable-which-key-integration))
+  :commands (lsp lsp-deferred))
+
+;; optionally
+(use-package lsp-ui :commands lsp-ui-mode)
+;; if you are helm user
+(use-package helm-lsp :commands helm-lsp-workspace-symbol)
+;; if you are ivy user
+(use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
+(use-package lsp-treemacs :commands lsp-treemacs-errors-list)
+
+;; optionally if you want to use debugger
+(use-package dap-mode)
+;; (use-package dap-LANGUAGE) to load the dap adapter for your language
+
+;; optional if you want which-key integration
+(use-package which-key
+    :config
+    (which-key-mode))
+
+;;ccls
+(setq ccls-executable "/usr/bin/ccls")
+;; (setq ccls-args '("--log-file=/tmp/ccls.log"))
+
+
+
+
+
+
+
 ;;=====================================
 ;; 语法检查
 ;;=====================================
@@ -105,6 +158,9 @@
 ;;只在编程语言下启用
 ;;(use-package flycheck
 ;;  :hook (prog-mode . flycheck-mode))
+
+(setq lsp-prefer-flymake nil)
+
 
 
 

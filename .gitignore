@@ -4,6 +4,7 @@ elpa/
 etc/gui-custom.el
 recentf
 places
+.lsp-session-v1
 
 
 
