@@ -1,4 +1,10 @@
 * Emacs配置文件
+[[[][https://img.shields.io/github/watchers/IammyselfYBX/NCEPU_CS_course.svg]][https://github.com/IammyselfYBX/NCEPU_CS_course/watchers]]
+[[[][https://img.shields.io/github/stars/IammyselfYBX/NCEPU_CS_course.svg]][https://github.com/IammyselfYBX/NCEPU_CS_course/stargazers]]
+[[[](https://img.shields.io/github/forks/IammyselfYBX/NCEPU_CS_course.svg)][https://github.com/IammyselfYBX/NCEPU_CS_course/network/members]]
+[[][https://img.shields.io/github/repo-size/IammyselfYBX/.emacs.d.svg]
+[[[][https://img.shields.io/github/contributors/CoolPhilChen/SJTU-Courses.svg]][https://github.com/IammyselfYBX/NCEPU_CS_course/graphs/contributors]]
+
 ** 安装目录 
 Emacs的配置目录
 #+begin_src shell
