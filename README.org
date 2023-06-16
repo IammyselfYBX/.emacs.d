@@ -29,5 +29,5 @@ M-x cnfonts-edit-profile
 ** 快捷键
 *** org-mode模式
 | 快捷键 | 功能          |
-| C-i    | 展开imune列表 |
+| C-i    | 展开imenu目录 |
 |        |               |
