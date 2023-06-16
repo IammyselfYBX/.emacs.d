@@ -31,3 +31,6 @@
 (require 'package)       ;; 引入包管理器，主要是针对elpa的
 (require 'use-package)   ;; 引入use-package
 (require 'my_use_package);; 配置包管理器
+
+;;===================================
+(require 'my_org)
