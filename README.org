@@ -25,3 +25,9 @@ https://github.com/IammyselfYBX/.emacs.d.git
 M-x cnfonts-edit-profile
 #+end_src
 
+
+** 快捷键
+*** org-mode模式
+| 快捷键 | 功能          |
+| C-i    | 展开imune列表 |
+|        |               |
