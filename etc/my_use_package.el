@@ -52,6 +52,24 @@
     (setq sml/theme 'respectful)
     (sml/setup))
 
+;;--------------------------------------
+;; dashboard
+;; https://github.com/emacs-dashboard/emacs-dashboard
+(use-package dashboard
+  :init
+  (dashboard-setup-startup-hook)
+  :config
+  (setq dashboard-init-info "This is YBX Emacs")
+  (setq dashboard-set-navigator t)
+  (setq show-week-agenda-p t)
+  (setq dashboard-items '((recents  . 10)
+                        (bookmarks . 5)
+                        ;;(projects . 5)
+                        (agenda . 5)))
+  (setq dashboard-startup-banner nil)
+  ;(setq dashboard-startup-banner "~/.emacs.d/.dashboard_startup.png")
+  )
+
 ;;---------------------------------------
 ;;设置行号
 (use-package emacs                                                            
