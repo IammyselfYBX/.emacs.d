@@ -7,11 +7,14 @@
 (menu-bar-mode -1)  ;;关闭菜单栏
 (tool-bar-mode -1)  ;;关闭工具栏
 
-;;设置窗口位置为屏库左上角(0,0)
-(set-frame-position (selected-frame) 30 60)
+;;设置窗口位置为屏库左上角(0,0)开始 (向左偏移，向下偏移)
+(set-frame-position (selected-frame) 100 0)
 ;;设置emacs 窗口打开时宽和高
-(set-frame-width (selected-frame) 2000)
-(set-frame-height (selected-frame) 33)
+;;(set-frame-width (selected-frame) 500)
+;;(set-frame-height (selected-frame) 59)
+
+;;修改字体大小
+(set-face-attribute 'default nil :height 220)
 
 ;;; 隐藏打开界面
 (setq inhibit-startup-screen t)

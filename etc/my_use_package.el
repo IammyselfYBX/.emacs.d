@@ -63,6 +63,15 @@
     ;;    (global-display-line-numbers-mode t)
     )
 
+;;---------------------------------------
+;; 字体设置 cnfonts
+;; https://github.com/tumashu/cnfonts
+;; cnfonts 的核心很简单，就是让中文字体和英文字体使用不同的字号，从而 实现中英文对齐。
+(use-package cnfonts
+     :config
+     (cnfonts-mode 1) ;;启动 emacs 激活cnfonts
+  )
+
 
 
 
