@@ -59,7 +59,9 @@
   :init
   (dashboard-setup-startup-hook)
   :config
+  (setq dashboard-banner-logo-title "YBX's Emacs")
   (setq dashboard-init-info "This is YBX Emacs")
+  (setq dashboard-footer-messages nil)
   (setq dashboard-set-navigator t)
   (setq show-week-agenda-p t)
   (setq dashboard-items '((recents  . 10)
