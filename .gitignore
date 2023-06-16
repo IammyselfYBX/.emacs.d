@@ -6,3 +6,5 @@ elpa/*
 backups/*
 # 忽略自动保存
 auto-save-list/*
+
+places
