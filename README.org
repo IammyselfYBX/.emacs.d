@@ -1,8 +1,9 @@
 * Emacs 配置文件
 
 ** 安装
-
-git clone 
+#+begin_src bash
+https://github.com/IammyselfYBX/.emacs.d.git
+#+end_src
 
 ** 文件结构
 #+begin_src bash
@@ -17,3 +18,10 @@ git clone
     └── org # 跟 orgmode 相关
         └── imenu-list.el # Emacs 插件，用于在单独的缓冲区中显示当前缓冲区的 imenu 条目
 #+end_src
+
+** 字体设置
+本项目采用了 cnfonts 的方案，可以使用如下命令进行配置字体
+#+begin_src bash
+M-x cnfonts-edit-profile
+#+end_src
+
