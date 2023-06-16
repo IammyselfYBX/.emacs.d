@@ -1,0 +1,19 @@
+* Emacs 配置文件
+
+** 安装
+
+git clone 
+
+** 文件结构
+#+begin_src bash
+├── init.el  # 初始文件
+├──etc       # 配置文件
+│   ├── gui-custom.el     # 由gui配置生成的配置文件
+│   ├── my_custom.el      # 个性化配置
+│   ├── my_elpa.el        # elpa源的配置
+│   ├── my_use_package.el # use-package 配置
+│   └── my_org.el         # org-mode 配置
+└── lib      # 函数库
+    └── org # 跟 orgmode 相关
+        └── imenu-list.el # Emacs 插件，用于在单独的缓冲区中显示当前缓冲区的 imenu 条目
+#+end_src
