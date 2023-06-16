@@ -6,7 +6,7 @@
 ;;;
 ;;; 常用格式
 ;;; (use-package 包名
-;;;    :ensure t       ; 是否一定确保已安装
+;;;    :ensure t       ; 是否一定确保已安装，没有包就自行安装
 ;;;    :defer nil      ; 是否延迟加载
 ;;;    :init           ; 初始化参数
 ;;;    :config         ; 基本配置参数
@@ -33,6 +33,7 @@
 ;; [可选] M-x package-refresh-contents RET ;;更新elpa的索引
 ;; M-x package-install RET restart-emacs
 (use-package restart-emacs)
+;; 可以按 C-x C-e 直接下载包
 
 ;;=================================================
 ;; 外观配置
@@ -41,6 +42,15 @@
 ;; 主题配置
 (use-package gruvbox-theme
   :init (load-theme 'gruvbox-dark-soft t))
+
+;;---------------------------------------
+;; mode-line(状态栏)配置
+;; 需要先加载主题才能加载状态栏
+(use-package smart-mode-line
+    :init
+    (setq sml/no-confirm-load-theme t)
+    (setq sml/theme 'respectful)
+    (sml/setup))
 
 ;;---------------------------------------
 ;;设置行号
@@ -52,12 +62,6 @@
     (global-set-key (kbd "<f9>") 'linum-mode) ;;设置快捷键
     ;;    (global-display-line-numbers-mode t)
     )
-
-
-;;---------------------------------------
-;; mode-line配置
-
-
 
 
 
