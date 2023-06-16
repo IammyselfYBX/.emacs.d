@@ -1,0 +1,8 @@
+#忽略elpa的包
+elpa/* 
+# 忽略
+*~
+# 忽略back 备份文件
+backups/*
+# 忽略自动保存
+auto-save-list/*
