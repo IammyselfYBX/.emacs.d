@@ -111,5 +111,6 @@
 ;;========================================
 ;; 文件结束
 (provide 'my_custom)
+;;(provide '文件名) 类似C语言的函数名，这样其他文件才可以调用(require '文件名)
 ;;如果没有 (provide 'XXX)的话，就会出现
 ;;error: Loading file /home/tony/.emacs.d/etc/init_ui.el failed to provide feature ‘init_ui’

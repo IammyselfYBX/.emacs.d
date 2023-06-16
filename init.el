@@ -1,11 +1,21 @@
 ;; 这是emacs的init.el配置文件
-;;; 配置文件位置					;
+;;; emacs的家目录
 ;;;  ~/.emacs
 ;;; ~/.emacs.d/init.el
 ;;; ~/.config/emacs/init.el (emacs版本 ≥ 27)
 
-;;设置加载目录到 etc 文件
-(add-to-list 'load-path "~/.emacs.d/etc/")
+;;设置加载 etc 文件到路径
+;; 可以下面的写法
+;; (add-to-list 'load-path "~/.emacs.d/etc/")
+;; 也可以下面的写法
+(add-to-list 'load-path
+             (expand-file-name (concat user-emacs-directory "etc")))
+;; user-emacs-directory 是emacs的家目录， 这里就是 "~/.emacs.d/"
+;; (concat 变量1, 变量2) 拼接两个变量 (concat user-emacs-directory "etc") 得到的结果就是 "~/.emacs.d/etc"
+;; expand-file-name 的功能就是将 相对路径——>绝对路径 这里就是把 "~/.emacs.d/etc"——>"/home/Handsomeman/.emacs.d/etc/"
+;; load-path 的作用是告诉Emacs在哪里可以找到要加载的Lisp文件或库
+;;  '作用：变量名前加上单引号（'）的作用是将变量转义，使其成为一个符号（symbol），不具有存储值的功能
+;; add-to-list函数 用于将一个元素添加到另一个列表中。这个函数接受两个参数：要添加的元素和目标列表
 
 ;; emacs 如果使用图形界面的设置生成的配置文件位置
 (setq custom-file
