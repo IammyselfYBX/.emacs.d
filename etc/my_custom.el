@@ -7,6 +7,11 @@
 (menu-bar-mode -1)  ;;关闭菜单栏
 (tool-bar-mode -1)  ;;关闭工具栏
 
+;;设置窗口位置为屏库左上角(0,0)
+(set-frame-position (selected-frame) 30 60)
+;;设置emacs 窗口打开时宽和高
+(set-frame-width (selected-frame) 2000)
+(set-frame-height (selected-frame) 33)
 
 ;;; 隐藏打开界面
 (setq inhibit-startup-screen t)

@@ -17,18 +17,20 @@
 ;;  '作用：变量名前加上单引号（'）的作用是将变量转义，使其成为一个符号（symbol），不具有存储值的功能
 ;; add-to-list函数 用于将一个元素添加到另一个列表中。这个函数接受两个参数：要添加的元素和目标列表
 
-;; emacs 如果使用图形界面的设置生成的配置文件位置
-(setq custom-file
-      (expand-file-name "gui-custom.el" (concat user-emacs-directory "etc")))
-(when (file-exists-p custom-file)
-  (load-file custom-file))
-
 ;; 指定固定备份文件路径
 (setq backup-directory-alist (quote (("." . "~/.emacs.d/backups/"))))
 ;;; 恢复文件
 ;;; M-x recover-file <RET> 文件名 <RET>
 ;;; yes <RET>
 ;;; C-x C-s
+
+;;-----------------------------------------------------------
+;; emacs 如果使用图形界面的设置生成的配置文件位置,都是一些乱七八糟的文件
+(setq custom-file
+      (expand-file-name "gui-custom.el" (concat user-emacs-directory "etc")))
+(when (file-exists-p custom-file)
+  (load-file custom-file))
+
 
 
 
