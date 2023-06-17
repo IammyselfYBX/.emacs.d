@@ -112,10 +112,23 @@
 ;; 字体设置 cnfonts
 ;; https://github.com/tumashu/cnfonts
 ;; cnfonts 的核心很简单，就是让中文字体和英文字体使用不同的字号，从而 实现中英文对齐。
+;;
+;; 修改字体
+;;    | 命令                      | 功能         |
+;;    |---------------------------+--------------|
+;;    | cnfonts-edit-profile      | 调整字体设置 |
+;;
+;; 修改字号
+;;   cnfonts 的字号信息是存储在 ~/.emacs.d/cnfonts/cnfonts.conf 里面，通过以下命令修改字号，结果写入到配置文件中
+;;   | 命令                      | 功能         |
+;;   |---------------------------+--------------|
+;;   | cnfonts-increase-fontsize | 增大字号     |
+;;   | cnfonts-decrease-fontsize | 减小字号     |
+;;
+;;
 (use-package cnfonts
      :init
      (cnfonts-mode 1) ;;启动 emacs 激活cnfonts
-     ;;:config
      :hook
      (after-make-frame-functions . cnfonts-set-font)
      (cnfonts-set-font . cnfonts-set-font)
