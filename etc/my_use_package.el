@@ -83,7 +83,7 @@
   :init
   (dashboard-setup-startup-hook)
   :config
-  (setq dashboard-banner-logo-title "YBX's Emacs")
+  (setq dashboard-banner-logo-title "杨秉学的Emacs")
   (setq dashboard-init-info "This is YBX Emacs")
   (setq dashboard-footer-messages nil)
   (setq dashboard-set-navigator t)
@@ -113,8 +113,12 @@
 ;; https://github.com/tumashu/cnfonts
 ;; cnfonts 的核心很简单，就是让中文字体和英文字体使用不同的字号，从而 实现中英文对齐。
 (use-package cnfonts
-     :config
+     :init
      (cnfonts-mode 1) ;;启动 emacs 激活cnfonts
+     ;;:config
+     :hook
+     (after-make-frame-functions . cnfonts-set-font)
+     (cnfonts-set-font . cnfonts-set-font)
   )
 
 
