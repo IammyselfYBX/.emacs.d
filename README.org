@@ -38,7 +38,7 @@ $> mkfontscale && mkfontdir && fc-cache -fv
 M-x cnfonts-edit-profile
 #+end_src
 
-
+---
 ** 快捷键
 *** 界面设置
 | 快捷键 | 功能     |
@@ -155,9 +155,9 @@ M-x cnfonts-edit-profile
 #+end_src
 
 在GUI模式下
-| 快捷键                   | 功能 |
-|--------------------------+------|
-| <C-c><C-x><C-v> 显示图片 |      |
+| 快捷键          | 功能     |
+|-----------------+----------|
+| <C-c><C-x><C-v> | 显示图片 |
 
 *** 画图
 **** ditaa
