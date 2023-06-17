@@ -20,6 +20,8 @@ https://github.com/IammyselfYBX/.emacs.d.git
     │   └── judge_os.el   # 判断操作系统的库函数
     └── org # 跟 orgmode 相关
         └── imenu-list.el # Emacs 插件，用于在单独的缓冲区中显示当前缓冲区的 imenu 条目
+
+
 #+end_src
 
 ** 字体设置
@@ -39,21 +41,176 @@ M-x cnfonts-edit-profile
 
 ** 快捷键
 *** 界面设置
-| 快捷键 | 功能 |
+| 快捷键 | 功能     |
 | <F9>   | 显示行号 |
+|        |          |
+
+**** 分屏
+| 功能      | 操作                 |
+|-----------+----------------------|
+| 系统默认  |                      |
+| <C-x> 3   | 水平分割             |
+| <C-x> 1   | 垂直分割             |
+| <C-x> 2   | 只保留当前窗口       |
+| <C-x> 0   | 关闭光笔啊所在的窗口 |
+| <C-x> o   | 跳转下一个窗口       |
+|-----------+----------------------|
+| 自定义    |                      |
+| S-left    | 左右分屏             |
+| S-right   | 左右分屏             |
+| S-down    | 上下分屏             |
+| S-up      | 上下分屏             |
+| C-S-left  | 缩小屏幕             |
+| C-S-right | 放大屏幕             |
+| C-S-down  | 缩小屏幕             |
+| C-S-up    | 放大屏幕             |
+
 
 *** 文本操作
-+--------+--------------------------+
-| 快捷键 | 功能                     |
-+--------+--------------------------+
-| 选中   | 1.GUI模式，直接鼠标选中  |
-|        |2.使用 C-Spc或C-@ 标记选择|
-|        |        的起始位置        |
-+--------+--------------------------+
+**** 打开/关闭/保存
+| 快捷键     | 功能               |
+|------------+--------------------|
+| Keybinds   | Function           |
+| <C+x><C-f> | 打开文档           |
+| <C-x><C-s> | 保存文档           |
+| <C-x> s    | 保存打开的全部文档 |
+| <C-x><C-w> | 文档另存为         |
+| <C-x> k    | 关闭当前文档       |
 
-*** org-mode模式
-| 快捷键 | 功能                |
-|--------+---------------------|
-| C-i    | 展开imenu目录       |
-| C-c ~  | 在org中使用table.el |
-|        |                     |
+
+**** 复制/剪切/粘贴
+| 功能       | 操作                                 |
+|------------+--------------------------------------|
+| 选中       | 1.GUI模式，直接鼠标选中              |
+|            | 2.使用 C-Spc或C-@ 标记选择的起始位置 |
+|------------+--------------------------------------|
+| <S-Home>   | 选择当天位置到开头                   |
+| <S-End>    | 选择光标所在的位置到结尾             |
+| <C-x><C-x> | 选择整个段落                         |
+| <C-x> h    | 全选                                 |
+| <M-h>      | 选择光标所在的段落                   |
+|------------+--------------------------------------|
+| 复制       | M-w                                  |
+| 剪切       | C-w                                  |
+| 粘贴       | C-y                                  |
+
+**** 查找
+| 快捷键 | 功能                 |
+|--------+----------------------|
+| <C-s>  | 查找                 |
+|        | <RET> 跳转到查找位置 |
+
+**** 目录操作
+| 快捷键  | 功能                             |
+|---------+----------------------------------|
+| <C-x> d | 启动 dired                       |
+| q       | 退出                             |
+| C       | 复制文件                         |
+| R       | 重命名                           |
+| D       | 删除文件夹                       |
+| +       | 创建目录                         |
+| Z       | 用gzip压缩                       |
+| m       | 选择文件/文件夹(一般与u结合使用) |
+| u       | 取消光标所在的文件/文件夹        |
+| U       | 取消全部的文件/文件夹            |
+| g       | 刷新录目                         |
+
+*** 命令
+| 快捷键 | 功能                                       |
+|--------+--------------------------------------------|
+| <M-x>  | 类似vim的 : 用来输入emacs命令并执行        |
+|        | load-file Ret 让当前的配置文件修改立即生效 |
+| <C-g>  | 取消输入中的命令后者执行中的命令           |
+|        |                                            |
+
+*** 帮助
+| 快捷键  | 功能       |
+|---------+------------|
+| <C-h> t | 帮助文档   |
+| <C-h> k | 查询快捷键 |
+| <C-h> f | 查询函数   |
+
+** orgmode
+*** 快捷键
+| 快捷键            | 功能                |
+|-------------------+---------------------|
+| C-i               | 展开imenu目录       |
+| C-c ~             | 在org中使用table.el |
+| ｜-<TaB>          | 可以生成分割栏      |
+|                   |                     |
+|-------------------+---------------------|
+| latex预览         |                     |
+| 首先 $数学公式$   |                     |
+| <C-c> <C-x> <C-l> | latex预览           |
+|                   |                     |
+
+*** 图片
+#+begin_src org
+#+attr_html: :width 100px
+#+attr_latex: :width 100px
+#+ATTR_ORG: :width 10%
+#+BEGIN_SRC
+[[图片路径]]
+#+END_SRC
+#+end_src
+
+在GUI模式下
+| 快捷键                   | 功能 |
+|--------------------------+------|
+| <C-c><C-x><C-v> 显示图片 |      |
+
+*** 画图
+**** ditaa
+[[https://www.bilibili.com/video/BV1oJ411Y7af][Poor Man's UML Emacs Artist Mode and Ditaa Demo]]
+[[https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-ditaa.html][Ditaa Code Blocks in Org]]
+
+**** graphviz/dot
+
+*** 执行代码
+#+BEGIN_SRC org
+#+begin_src emacs-lisp
+(message "Hello YBX")
+#+end_src
+
+#+BEGIN_SRC C
+  printf("Hello world\n");
+#+END_SRC
+
+##执行python
+### 返回值的形式
+#+begin_src python
+  def my_sum(r):
+    sum = 0
+    for i in range(r):
+      sum +=i
+    return sum
+
+  return my_sum(100)
+#+end_src
+
+#+RESULTS:
+: 4950
+
+### 输出结果
+#+BEGIN_SRC python :results output
+from time import time
+s = time() #以浮点数形式返回当前时间
+print(s )
+#+END_SRC
+
+#+RESULTS:
+: 1679150218.093725
+
+#+END_SRC
+
+*** 导出
+**** 导出pdf的配置
+#+BEGIN_SRC org
+#+STARTUP:overview ::启动时默认显示overview级别
+# 导出pdf的设置
+#+LATEX_COMPILER: xelatex
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS: [a4paper, 12pt]
+#+LATEX_HEADER: \usepackage{xeCJK}
+#+LATEX_HEADER: \setCJKmainfont{SimSun}
+#+END_SRC
