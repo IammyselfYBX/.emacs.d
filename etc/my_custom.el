@@ -21,22 +21,11 @@
 ;;; 隐藏打开界面
 (setq inhibit-startup-screen t)
 
-(setq-default indent-tabs-mode nil)
 ;;----------------------------
 ;;用 y/n 来代替 yes/no
 (defalias 'yes-or-no-p 'y-or-n-p)
 ;;为了项目管理的统一化，也可以用如下的use-package写法：
 ;;(use-package emacs :config (defalias 'yes-or-no-p 'y-or-n-p))
-
-;;-----------------------------
-;;(use-package emacs
-;;    :config
-;;    ;;(setq display-line-numbers-type 'relative)
-;;    (setq display-line-numbers-type 'absolute)
-;;    (setq linum-format "%4d ") ;;行号显示和文本区域中间有间隔
-;;    (global-set-key (kbd "<f9>") 'linum-mode) ;;设置快捷键
-;;    ;;    (global-display-line-numbers-mode t)
-;;    )
 
 ;;光标变成竖线(仅GUI)
 (setq-default cursor-type 'bar)
@@ -76,7 +65,7 @@
 
 ;--------------------------
 ;设置垃圾回收阈值，加速启动速度
-(setq gc-cons-threshold most-positive-fixnum)
+(setq gc-cons-threshold most-positive-fixnum) ;; 因为现在内存比较大，所以垃圾回收就是内存的最大值
 
 ;--------------------------
 ;;关闭备份
