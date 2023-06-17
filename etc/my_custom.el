@@ -23,7 +23,8 @@
 ;;(set-frame-height (selected-frame) 59)
 
 ;;修改字体大小
-(set-face-attribute 'default nil :height 220)
+;; 已通过 cnfonts 完成修改了(见 my_use_package.el 中 cnfonts 部分)
+;;(set-face-attribute 'default nil :height 220)
 
 ;;; 隐藏打开界面
 (setq inhibit-startup-screen t)
