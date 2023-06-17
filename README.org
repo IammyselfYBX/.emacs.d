@@ -1,5 +1,18 @@
 * Emacs 配置文件
 
+** 准备条件
+*** Latex
+[[https://www.bilibili.com/video/BV1Zs4y1N7gJ/][通过ISO镜像安装Latex]]
+#+begin_src bash
+sudo mkdir /mnt/texlive2023
+sudo mount -o loop texlive2023-20230313.iso /mnt/texlive2023
+cd /mnt/texlive2023
+sudo ./install-tl
+#+end_src
+
+# 这是分割线
+---------
+
 ** 安装
 #+begin_src bash
 https://github.com/IammyselfYBX/.emacs.d.git
@@ -39,7 +52,6 @@ $> mkfontscale && mkfontdir && fc-cache -fv
 M-x cnfonts-edit-profile
 #+end_src
 
-# 这是分割线
----------
+
 
 
