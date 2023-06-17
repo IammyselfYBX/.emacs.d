@@ -50,6 +50,11 @@
 ;; (define-key cnfonts-mode-map (kbd "C--") #'cnfonts-decrease-fontsize)
 ;; (define-key cnfonts-mode-map (kbd "C-=") #'cnfonts-increase-fontsize)
                                         
+;;-----------------------------------
+;; 行号设置
+;; 详见 my_use_package.el 中 "设置行号"
+;; 
+;; 但是 Emacs 默认 M-g M-g 就可以跳转到某行
 
 
 ;;================================
@@ -87,9 +92,15 @@
 ;;记录上一次关闭位置，打开自动跳转
 (save-place-mode 1)
 
+;;------------------------------------
+;; Mac OS 设置
+;;
+;; 将 Command 键映射为 Meta, Option 键 映射为 空
+(when *is-mac*
+  (setq mac-command-modifier 'meta)
+  (setq mac-option-modifier 'none))
 
-
-
+	
 ;;====================================
 ;;分屏
 ;;=========================================
