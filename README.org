@@ -168,16 +168,18 @@ M-x cnfonts-edit-profile
 
 *** 执行代码
 #+BEGIN_SRC org
+* 执行emace-lisp
 #+begin_src emacs-lisp
 (message "Hello YBX")
 #+end_src
 
+*执行C语言
 #+BEGIN_SRC C
   printf("Hello world\n");
 #+END_SRC
 
-##执行python
-### 返回值的形式
+* 执行python
+** 返回值的形式
 #+begin_src python
   def my_sum(r):
     sum = 0
@@ -191,7 +193,7 @@ M-x cnfonts-edit-profile
 #+RESULTS:
 : 4950
 
-### 输出结果
+** 输出结果
 #+BEGIN_SRC python :results output
 from time import time
 s = time() #以浮点数形式返回当前时间
