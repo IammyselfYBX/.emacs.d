@@ -38,7 +38,7 @@ $> mkfontscale && mkfontdir && fc-cache -fv
 M-x cnfonts-edit-profile
 #+end_src
 
----
+———
 ** 快捷键
 *** 界面设置
 | 快捷键 | 功能     |
