@@ -35,6 +35,24 @@
 (use-package restart-emacs)
 ;; 可以按 C-x C-e 直接下载包
 
+;;--------------------------------------------------------
+;; 安装 benchmark-init
+;; 查看 emacs 启动时间
+;; https://github.com/dholm/benchmark-init-el
+;; 使用：
+;; M-x benchmark-init/show-durations-tabulated ;; 以列表结构展示
+;; M-x benchmark-init/show-durations-tree      ;; 以树形结构展示
+;; 按 q 推出
+
+(use-package benchmark-init
+  :config
+  ;; emacs打开以后就禁止 benchmark 收集数据了
+  (add-hook 'after-init-hook 'benchmark-init/deactivate)
+  ;; :hook
+  ;; (after-init . benchmark-init/deactivate)
+  )
+
+
 ;;=================================================
 ;; 外观配置
 ;;================================================
