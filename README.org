@@ -7,27 +7,53 @@ https://github.com/IammyselfYBX/.emacs.d.git
 
 ** 文件结构
 #+begin_src bash
-├── init.el  # 初始文件
-├──etc       # 配置文件
+├── .emacs_cnfonts # 存储cnfonts所需的字体
+├── init.el        # 初始文件
+├── etc            # 配置文件
 │   ├── gui-custom.el     # 由gui配置生成的配置文件
 │   ├── my_custom.el      # 个性化配置
 │   ├── my_elpa.el        # elpa源的配置
 │   ├── my_use_package.el # use-package 配置
 │   └── my_org.el         # org-mode 配置
-└── lib      # 函数库
+└── lib             # 函数库
+    ├── OS  # 跟操作系统相关
+    │   └── judge_os.el   # 判断操作系统的库函数
     └── org # 跟 orgmode 相关
         └── imenu-list.el # Emacs 插件，用于在单独的缓冲区中显示当前缓冲区的 imenu 条目
 #+end_src
 
 ** 字体设置
 本项目采用了 cnfonts 的方案，可以使用如下命令进行配置字体
+*** 正常使用前需要安装字体
+#+begin_src bash
+$> cp -r .emacs_cnfonts /usr/share/fonts/emacs_cnfonts
+$> cd /usr/share/fonts/emacs_cnfonts
+$> mkfontscale && mkfontdir && fc-cache -fv
+#+end_src
+
+*** 编辑字体
 #+begin_src bash
 M-x cnfonts-edit-profile
 #+end_src
 
 
 ** 快捷键
+*** 界面设置
+| 快捷键 | 功能 |
+| <F9>   | 显示行号 |
+
+*** 文本操作
++--------+--------------------------+
+| 快捷键 | 功能                     |
++--------+--------------------------+
+| 选中   | 1.GUI模式，直接鼠标选中  |
+|        |2.使用 C-Spc或C-@ 标记选择|
+|        |        的起始位置        |
++--------+--------------------------+
+
 *** org-mode模式
-| 快捷键 | 功能          |
-| C-i    | 展开imenu目录 |
-|        |               |
+| 快捷键 | 功能                |
+|--------+---------------------|
+| C-i    | 展开imenu目录       |
+| C-c ~  | 在org中使用table.el |
+|        |                     |
