@@ -126,32 +126,82 @@
 ;; 文本编辑——强化搜索
 ;;=============================================
 ;; ivy-counsel-swiper三剑客，同时优化了一系列 Minibuffer 的操作
-; (use-package ivy
-;   :defer 1
-;   :demand
-;   :hook (after-init . ivy-mode)
-;   :config
-;   (ivy-mode 1)
-;   (setq ivy-use-virtual-buffers t
-;         ivy-initial-inputs-alist nil
-;         ivy-count-format "%d/%d "
-;         enable-recursive-minibuffers t
-;         ivy-re-builders-alist '((t . ivy--regex-ignore-order))))
-; 
-; (use-package counsel
-;   :after (ivy)
-;   :bind (("M-x" . counsel-M-x)
-;          ("C-x C-f" . counsel-find-file)
-;          ("C-c f" . counsel-recentf)
-;          ("C-c g" . counsel-git)))
-; 
-; (use-package swiper
-;   :after ivy
-;   :bind (("C-s" . swiper)
-;          ("C-r" . swiper-isearch-backward))
-;   :config (setq swiper-action-recenter t
-;                 swiper-include-line-number-in-search t))
+;; https://github.com/abo-abo/swiper
 
+;; ivy是一个通用的命令补全接口
+;;  主要是为Counsel 和 Swiper 提供基础支持
+;;  ivy 的补全是通过 Minibuffer 来显示的
+(use-package ivy
+  :defer 1
+  :demand
+  :hook (after-init . ivy-mode)
+  :config
+  (ivy-mode 1)
+  (setq ivy-use-virtual-buffers t
+        ivy-initial-inputs-alist nil
+        ivy-count-format "%d/%d "
+        enable-recursive-minibuffers t
+        ivy-re-builders-alist '((t . ivy--regex-ignore-order))))
+
+;; swiper 是用于搜索的插件
+;;    对标Emacs中的 isearch ，它使用 Ivy 来显示所有匹配项的概览。
+;;   主要为Counsel 提供搜索功能
+;;   技术手册：https://oremacs.com/swiper/
+(use-package swiper
+  :after ivy
+  :bind (("C-f" . swiper)
+         ("C-S-f" . swiper-isearch-backward))
+  :config (setq swiper-action-recenter t
+                swiper-include-line-number-in-search t))
+
+;; Counsel 主要是将emacs中的一些命令功能增强了，这些命令经过定制以充分利用 Ivy
+;;   安装Counsel将同时安装Ivy和Swiper作为依赖
+;;   其中 ivy 和 swiper 都是为增强 Counsel 服务的
+(use-package counsel
+  :after (ivy)
+  :bind (("M-x" . counsel-M-x)           ;; 替换emacs原生的 M-x 键
+         ("C-x C-f" . counsel-find-file)
+         ("C-c f" . counsel-recentf)
+         ("C-c g" . counsel-git)))
+
+
+;;=================================================
+;; 补全/智能
+;;================================================
+;; company
+;; http://company-mode.github.io/
+;; https://github.com/company-mode/company-mode
+;;
+;;  简单来说 dabbrev 是 Emacs 的内置包，通过对当前缓冲区的文本进行搜索来完成匹配功能
+;;  company 是通过添加许多包来完善 dabbrev 功能(eg:为语义信息、片段和其他类型的数据提供补全的能力)
+;;  comapny 的后端就是 `company-dabbrev`
+;;    它的工作原理是使用 dabbrev 包在当前缓冲区的文本中搜索匹配项
+;;    可以配置补全候选的最小长度，是否忽略大小写，是否在注释和字符串中进行搜索
+;;    company-dabbrev 后端默认仅在当前缓冲区中搜索完成候选，但是 "company-dabbrev-code-other-buffers" 可以设置其他缓冲区
+;;  company-backends 是 company 提供完成候选的所有后端的列表。
+;;    列表中后端的顺序很重要，因为列表中的第一个后端将首先使用，然后是第二个后端，依此类推。
+;;  company-semantic 是根据语义补全的后端
+;;  company-yasnippet 是根据 yasnippet 补全的后端
+;;  
+(use-package company
+  :config
+  (setq company-dabbrev-code-everywhere t         ;; 任何情况都补全
+        company-dabbrev-code-modes t              ;; 开启company-dabbrev-code-modes
+        company-dabbrev-code-other-buffers 'all   ;; 在全部缓冲区中搜索后选项(尽管这会让显示匹配的速度下降)
+	company-dabbrev-other-buffers 'all        ;; 
+        company-dabbrev-downcase nil              ;; 在显示完成候选者之前 不全转换成小写
+        company-dabbrev-ignore-case t             ;; 不忽略大小写
+        company-require-match nil                 ;; 不用键入完整的字符串，仅敲待输入字符串的前几个字母就可以实现补全
+        company-minimum-prefix-length 2           ;; 输入2个字母开始补全
+        company-show-numbers nil                  ;; 不显示候选词的编号
+        company-tooltip-limit 20                  ;; 候选次最多 20 个
+        company-idle-delay 0                      ;; 当用户停止输入 0 秒(默认是 0.2)后，弹出候选框
+        company-echo-delay 0                      ;; 当用户停止输入 0 秒(默认是 0.1)后，候选框显示候选词
+        company-tooltip-offset-display 'scrollbar ;; 如果候选词比较多，以滚动条的形式显示 | 另一个选项是 (setq company-tooltip-offset-display 'lines) 就是全部显示
+        company-begin-commands '(self-insert-command org-self-insert-command ))	;;设置在org-mode 模式下自动补全
+  (push '(company-semantic :with company-yasnippet) company-backends) ;; 将 company-semantic 和 company-yasnippet 后端添加到 company-backends 列表的末尾
+  :hook ((after-init . global-company-mode))      ;; 开机就启动
+  )
 
 
 ;;文档结束
