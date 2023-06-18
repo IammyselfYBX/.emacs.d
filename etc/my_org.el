@@ -1,6 +1,6 @@
-;;=========================================
+;;==========================================================
 ;;org-mode
-;;=========================================
+;;==========================================================
 ;; 自动换行
 (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
 
@@ -48,15 +48,14 @@
 ;org-preview-latex 默认不开启
 ;;;; (setq org-startup-with-latex-preview nil)
 
-
-;-------------------------------------------
+;;----------------------------------------------------------
 ;;导出
 ;配置org-export使用xelatex来做pdf的生成
 ;;;; (setq org-latex-compiler "xelatex")
 ;;;; (setq org-latex-pdf-process '("xelatex %f"))
 ;;;; (add-to-list 'org-latex-default-packages-alist '("" "ctex" t ("xelatex")))
 
-;;-------------------------------------------
+;;----------------------------------------------------------
 ;;;; 在缓冲区显示大纲
 (add-to-list 'load-path "~/.emacs.d/lib/org/")
 (require 'imenu-list)
