@@ -13,7 +13,7 @@ sudo ./install-tl
 **** 安装可能失败
 第一次安装很可能下载失败，所以可能需要手动安装
 
-[[https://melpa.org/#/lsp-mode][[melpa] lsp-mode地址]]
+[[https://melpa.org/#/lsp-mode][(melpa) lsp-mode地址]]
 
 #+BEGIN_SRC bash
 $> unzip lsp-mode-20210227.1401.zip
@@ -36,7 +36,7 @@ $> mv /mnt/d/lsp-mode-autoloads.el ~/.emacs.d/elpa/lsp-mode-20210227.1401/
 
 ** 安装
 #+begin_src bash
-https://github.com/IammyselfYBX/.emacs.d.git
+git clone https://github.com/IammyselfYBX/.emacs.d.git
 #+end_src
 
 ** 文件结构
