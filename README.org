@@ -13,7 +13,7 @@ sudo ./install-tl
 **** 安装可能失败
 第一次安装很可能下载失败，所以可能需要手动安装
 
-[[[https://melpa.org/#/lsp-mode][[melpa] lsp-mode地址]]
+[[https://melpa.org/#/lsp-mode][[melpa] lsp-mode地址]]
 
 #+BEGIN_SRC bash
 $> unzip lsp-mode-20210227.1401.zip
