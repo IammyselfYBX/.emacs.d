@@ -1,4 +1,7 @@
-;; 这是emacs的init.el配置文件
+;;; init.el --- emacs 启动配置文件
+
+;;; Commentary:
+;;; 这是emacs的init.el配置文件
 ;;; emacs的家目录
 ;;;  ~/.emacs
 ;;; ~/.emacs.d/init.el

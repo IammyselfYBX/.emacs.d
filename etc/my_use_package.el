@@ -1,4 +1,7 @@
-;; 这是配置 usepacakge的文档
+;;; my_use_package --- 这是配置 usepacakge的文档
+;;; Commentary:
+;;; 该配置文件使用 use-package 实现emacs软件包的管理
+;;;
 ;;; use-package 是一个宏——用简单统一的方式去管理插件
 ;;; 官网：https://jwiegley.github.io/use-package/
 ;;;     ：https://github.com/jwiegley/use-package
@@ -69,6 +72,8 @@
 ;;----------------------------------------------------------
 ;; mode-line(状态栏)配置
 ;; 需要先加载主题才能加载状态栏
+;; https://github.com/Malabarba/smart-mode-line
+;;
 (use-package smart-mode-line
     :init
     (setq sml/no-confirm-load-theme t)
@@ -215,7 +220,61 @@
   :hook ((after-init . global-company-mode))      ;; 开机就启动
   )
 
-;;==========================================================
+;;----------------------------------------------------------
+;; flycheck 语法检查
+;; https://github.com/flycheck/flycheck
+;; https://www.flycheck.org/en/latest/
+;;
+;; 语法检查器
+;;   可以用 `C-c ! s` 来选择语法检查器，如果没有的话可以安装
+;;   $ pip install pylint # 安装python的语法检查器
+;;   $ npm install eslint # 安装Java的语法检查器
+;;
+;; | 快捷键  | 功能                                |
+;; |---------+-------------------------------------|
+;; | C-c t f | f                                   |
+;; | C-c ! v | 检查您的 Flycheck 设置是否已完成    |
+;; | C-c ! V | 检查您的 Flycheck 版本信息          |
+;; |         |                                     |
+;; | C-c ! p | 跳转到上个报错的地方                |
+;; | C-c ! n | 跳转到下个报错的地方                |
+;; | C-c ! l | 列出当前缓冲区中所有的报错error信息 |
+;; |         |                                     |
+;; | C-c ! i | 打开浏览器官方文档                  |
+;; |         |                                     |
+;; | C-c ! s | 选择语法检查器                      |
+;;
+;;
+(use-package flycheck
+  :init (global-flycheck-mode)
+  :hook
+  (prog-mode . flycheck-mode)    ;; 只在编程语言下启用
+  ;;(after-init . global-flycheck-mode)
+  )
 
+
+;;----------------------------------------------------------
+;; which-key 按键提示，辅助记忆组合键
+;; 当按下一个快捷键的时候， which-key 会提示接下来可能全部的快捷键
+;; https://github.com/justbur/emacs-which-key
+;;
+;;开启/关闭 M-x which-key-mode
+;; 
+(use-package which-key
+  :defer nil
+  :config
+  (which-key-mode)
+  (setq which-key-popup-type 'minibuffer)
+  ;; 美化：
+  (add-to-list 'which-key-replacement-alist '(("TAB" . nil) . ("↹" . nil)))
+  (add-to-list 'which-key-replacement-alist '(("ESC" . nil) . ("␛" . nil)))
+  (add-to-list 'which-key-replacement-alist '(("RET" . nil) . ("⏎" . nil)))
+  (add-to-list 'which-key-replacement-alist '(("DEL" . nil) . ("⇤" . nil)))
+  (add-to-list 'which-key-replacement-alist '(("SPC" . nil) . ("␣" . nil)))
+  )
+
+
+;;==========================================================
+;;==========================================================
 ;;文档结束
 (provide 'my_use_package)
