@@ -30,6 +30,24 @@ Error loading autoloads: (file-missing Cannot open load file No such file or dir
 $> mv /mnt/d/lsp-mode-autoloads.el ~/.emacs.d/elpa/lsp-mode-20210227.1401/
 #+END_SRC
 
+**** 语言服务器
+[[https://emacs-lsp.github.io/lsp-mode/page/languages/][官网提供]]
+
+***** C/C++
+我选择的是 ccls
+#+BEGIN_SRC bash
+# 安装ccls
+## Arch
+$> sudo pacman -S ccls
+## Ubuntu
+$> sudo apt install ccls
+$> sudo apt install clang
+
+# 找到ccls的位置
+$> which ccls
+/usr/bin/ccls
+#+END_SRC
+
 
 # 这是分割线
 ---------
@@ -38,6 +56,25 @@ $> mv /mnt/d/lsp-mode-autoloads.el ~/.emacs.d/elpa/lsp-mode-20210227.1401/
 #+begin_src bash
 git clone https://github.com/IammyselfYBX/.emacs.d.git
 #+end_src
+
+*** 安装插件
+一般情况下是直接安装，但是有时会显示没有软件包，这是修改 my_elpa.el 试试
+#+BEGIN_SRC bash
+;;更改国内源
+(setq package-archives '(                                               (setq package-archives '(
+    ;; emacs-china                                                          ;; emacs-china
+    ("gnu"   . "http://1.15.88.122/gnu/")                            -----> ;;("gnu"   . "http://1.15.88.122/gnu/")
+    ("melpa" . "http://1.15.88.122/melpa/")                          -----> ;;("melpa" . "http://1.15.88.122/melpa/")
+    ;; 清华                                                                 ;; 清华
+    ("gnu"    . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")            ("gnu"    . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+    ("nongnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")         ("nongnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
+    ;; 外网                                                                 ;; 外网
+    ("melpa"  . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")          ("melpa"  . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+    ("gnu" . "https://elpa.gnu.org/packages/")                              ("gnu" . "https://elpa.gnu.org/packages/")
+    ))                                                                      ))
+#+END_SRC
+
+实在不行就手动安装(详见 lsp-mode 的安装方式)
 
 ** 文件结构
 #+begin_src bash
