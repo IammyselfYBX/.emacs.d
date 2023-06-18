@@ -48,7 +48,15 @@ $> which ccls
 /usr/bin/ccls
 #+END_SRC
 
-***** Python 
+***** Python
+#+BEGIN_SRC bash
+  # 采用的是 pylsp
+  # 官网:https://emacs-lsp.github.io/lsp-mode/page/lsp-pylsp/
+  $> pip install 'python-lsp-server[all]'
+
+  # 如果使用WSL的情况就需要修改 PATH 环境变量
+  $> echo "export PATH=$PATH:/home/tony/.local/bin/" >> ~/.bash_profile 
+#+END_SRC
 
 
 # 这是分割线

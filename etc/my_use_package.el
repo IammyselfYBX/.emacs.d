@@ -391,6 +391,27 @@
          (lambda () (require 'ccls) (lsp))))
 (setq ccls-executable "/usr/bin/ccls") ;; 设置 ccls 的执行位置
 
+
+
+;;----------------------------------------------------------
+;; dap-mode以及对应的调试器
+;; https://github.com/emacs-lsp/dap-mode
+;; https://emacs-lsp.github.io/dap-mode
+;;
+;;; (use-package dap-mode
+;;;     :init
+;;;     (add-hook 'lsp-mode-hook 'dap-mode)
+;;;     (add-hook 'dap-mode-hook 'dap-ui-mode)
+;;;     (add-hook 'dap-mode-hook 'dap-tooltip-mode)
+;;;     ;;   (add-hook 'python-mode-hook (lambda() (require 'dap-python)))
+;;;     ;;   (add-hook 'go-mode-hook (lambda() (require 'dap-go)))
+;;;     ;;   (add-hook 'java-mode-hook (lambda() (require 'dap-java)))
+;;;     )
+
+
+
+
+
 ;;==========================================================
 ;;==========================================================
 ;;文档结束
