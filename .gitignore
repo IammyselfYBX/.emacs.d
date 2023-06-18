@@ -13,3 +13,6 @@ places
 cnfonts/*
 
 recentf
+
+# 忽略 lsp-mode 生成为文件
+.lsp-session-v1

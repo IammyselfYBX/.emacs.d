@@ -301,7 +301,11 @@
 	;; lsp-auto-guess-root nil
 	;; lsp-enable-snippet t
 	;; )
-  (setq lsp-keymap-prefix "C-c l")
+  (defun lsp-save-actions ()
+    "LSP actions before save."
+    (add-hook 'before-save-hook #'lsp-organize-imports t t)
+	(add-hook 'before-save-hook #'lsp-format-buffer t t))
+
   ;;:config (  
 	   ;;(with-eval-after-load 'lsp-mode ;;忽略项目中某些文件/文件夹 详见：https://emacs-lsp.github.io/lsp-mode/page/file-watchers/
              ;; (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.my-folder\\'")
@@ -311,7 +315,13 @@
 	   ;;(setq lsp-log-io nil)  ;; 关闭日志记录，提高工作性能
   ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
   ;; 为 lsp-command-keymap 设置一个前缀(很少有人设置成 "C-l" 或 "C-c l")
-    
+  :config
+  (setq lsp-auto-guess-root t
+	    lsp-headerline-breadcrumb-enable nil
+	    lsp-keymap-prefix "C-c l"
+	    lsp-log-io nil)
+  (define-key lsp-mode-map (kbd "C-c l") lsp-command-map)
+
   :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
          ;; (XXX-mode . lsp) 或者 (XXX-mode . lsp-deferred)
 	 ;; lsp 与 lsp-deferred 区别就是 lsp 开启emacs就启动，lsp-deferred 是进入某个模式启动
@@ -320,6 +330,7 @@
 	 (c-mode . lsp-deferred)
 	 (java-mode . lsp-deferred)
 	 (org-mode . lsp-deferred)
+	 (python-mode . lsp-deferred)
 	 ;;(go-mode . lsp-deferred)
 	 ;;(js-mode . lsp-deferred)
 	 ;;(html-mode . lsp-deferred)
@@ -343,18 +354,22 @@
 ;;
 (use-package lsp-ui
   :after lsp-mode
-  :hook (lsp-mode . lsp-ui-mode)
   :init (setq lsp-ui-doc-enable t
 	      lsp-ui-doc-use-webkit nil
-	      lsp-ui-doc-delay 0
+	      lsp-ui-doc-delay 0             ;;显示文档的延迟
 	      lsp-ui-doc-include-signature t
 	      lsp-ui-doc-position 'at-point
 	      lsp-eldoc-enable-hover nil
 	      lsp-ui-sideline-enable t
 	      lsp-ui-sideline-show-hover nil
+	      lsp-ui-doc-show-with-cursor nil  ;; 当光标移到符号的位置显示文档
+	      lsp-ui-doc-show-with-mouse t   ;; 当鼠标移到符号的位置显示文档
 	      lsp-ui-sideline-show-diagnostics nil
 	      lsp-ui-sideline-ignore-duplicate t)
+;;  (add-hook 'lsp-mode-hook 'lsp-ui-mode)
+;;  (add-hook 'lsp-ui-mode-hook 'lsp-modeline-code-actions-mode)
   :config (setq lsp-ui-flycheck-enable t)
+  :hook (lsp-mode . lsp-ui-mode)
   :commands lsp-ui-mode)
 
 (use-package lsp-ivy :commands lsp-ivy-workspace-symbol)

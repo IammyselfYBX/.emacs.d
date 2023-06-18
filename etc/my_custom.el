@@ -138,6 +138,15 @@
 
 
 ;;==========================================================
+;; 编程
+;;----------------------------------------------------------
+;; python 
+;; 解决emacs 打开python 报错 : emacs can't guess python-indent-offset using defaults 4
+(setq python-indent-guess-indent-offset t)  
+(setq python-indent-guess-indent-offset-verbose nil)
+
+
+;;==========================================================
 ;; 文件结束
 (provide 'my_custom)
 ;;(provide '文件名) 类似C语言的函数名，这样其他文件才可以调用(require '文件名)
