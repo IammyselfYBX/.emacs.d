@@ -9,12 +9,34 @@ cd /mnt/texlive2023
 sudo ./install-tl
 #+end_src
 
+*** lsp-mode
+**** 安装可能失败
+第一次安装很可能下载失败，所以可能需要手动安装
+
+[[https://melpa.org/#/lsp-mode][(melpa) lsp-mode地址]]
+
+#+BEGIN_SRC bash
+$> unzip lsp-mode-20210227.1401.zip
+$> mv /mnt/d/lsp-mode-20210227.1401/ ~/.emacs.d/elpa/ 
+#+END_SRC
+
+有时启动的时候会出现如下报错
+#+BEGIN_SRC bash
+tony@DESKTOP-TTVCFEO:~/.emacs.d$ emacs --debug-init
+Error loading autoloads: (file-missing Cannot open load file No such file or directory /home/tony/.emacs.d/elpa/lsp-mode-20230614.2208/lsp-mode-autoloads)
+#+END_SRC
+这时就在网上找一个 ```lsp-mode-autoloads.el``` 的文件下载
+#+BEGIN_SRC bash
+$> mv /mnt/d/lsp-mode-autoloads.el ~/.emacs.d/elpa/lsp-mode-20210227.1401/
+#+END_SRC
+
+
 # 这是分割线
 ---------
 
 ** 安装
 #+begin_src bash
-https://github.com/IammyselfYBX/.emacs.d.git
+git clone https://github.com/IammyselfYBX/.emacs.d.git
 #+end_src
 
 ** 文件结构

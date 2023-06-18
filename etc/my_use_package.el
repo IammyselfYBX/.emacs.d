@@ -1,4 +1,7 @@
-;; 这是配置 usepacakge的文档
+;;; my_use_package --- 这是配置 usepacakge的文档
+;;; Commentary:
+;;; 该配置文件使用 use-package 实现emacs软件包的管理
+;;;
 ;;; use-package 是一个宏——用简单统一的方式去管理插件
 ;;; 官网：https://jwiegley.github.io/use-package/
 ;;;     ：https://github.com/jwiegley/use-package
@@ -12,11 +15,12 @@
 ;;;    :config         ; 基本配置参数
 ;;;    :bind           ; 快捷键的绑定
 ;;;    :hook           ; hook模式的绑定
+;;;    :commands       ; 用于指定加载包时将加载的命令
 ;;; )
 
 ;;==========================================================
 ;; 导入其他库函数
-;; --------------------------------------------------------
+;;----------------------------------------------------------
 ;; 引入判断操作系统的库
 (add-to-list 'load-path "~/.emacs.d/lib/OS")
 (require 'judge_os)
@@ -32,8 +36,7 @@
   (setq use-package-verbose t)
   )
   
-
-;;--------------------------------------------------------
+;;----------------------------------------------------------
 ;; 安装 restart-emacs
 ;; https://github.com/iqbalansari/restart-emacs
 ;; [可选] M-x package-refresh-contents RET ;;更新elpa的索引
@@ -41,7 +44,7 @@
 (use-package restart-emacs)
 ;; 可以按 C-x C-e 直接下载包
 
-;;--------------------------------------------------------
+;;----------------------------------------------------------
 ;; 安装 benchmark-init
 ;; 查看 emacs 启动时间
 ;; https://github.com/dholm/benchmark-init-el
@@ -62,21 +65,23 @@
 ;;==========================================================
 ;; 外观配置
 ;;==========================================================
-;;-----------------------------------------------
+;;----------------------------------------------------------
 ;; 主题配置
 (use-package gruvbox-theme
   :init (load-theme 'gruvbox-dark-soft t))
 
-;;-----------------------------------------------
+;;----------------------------------------------------------
 ;; mode-line(状态栏)配置
 ;; 需要先加载主题才能加载状态栏
+;; https://github.com/Malabarba/smart-mode-line
+;;
 (use-package smart-mode-line
     :init
     (setq sml/no-confirm-load-theme t)
     (setq sml/theme 'respectful)
     (sml/setup))
 
-;;-----------------------------------------------
+;;----------------------------------------------------------
 ;; dashboard
 ;; https://github.com/emacs-dashboard/emacs-dashboard
 (use-package dashboard
@@ -96,7 +101,7 @@
   ;(setq dashboard-startup-banner "~/.emacs.d/.dashboard_startup.png")
   )
 
-;;-----------------------------------------------
+;;----------------------------------------------------------
 ;;设置行号
 (use-package emacs
     :unless *is-windows*   ;; 在windows中不开启行号
@@ -108,7 +113,14 @@
     ;;    (global-display-line-numbers-mode t)
     )
 
-;;-----------------------------------------------
+;;----------------------------------------------------------
+;; ivy-posframe 修改 mini-buffer
+;; https://github.com/tumashu/ivy-posframe
+;;
+;; 前提是得安装 ivy
+;;
+
+;;----------------------------------------------------------
 ;; 字体设置 cnfonts
 ;; https://github.com/tumashu/cnfonts
 ;; cnfonts 的核心很简单，就是让中文字体和英文字体使用不同的字号，从而 实现中英文对齐。
@@ -135,9 +147,9 @@
   )
 
 
-;;================================================
+;;==========================================================
 ;; 文本编辑——强化搜索
-;;================================================
+;;==========================================================
 ;; ivy-counsel-swiper三剑客，同时优化了一系列 Minibuffer 的操作
 ;; https://github.com/abo-abo/swiper
 
@@ -178,9 +190,9 @@
          ("C-c g" . counsel-git)))
 
 
-;;=================================================
+;;==========================================================
 ;; 补全/检查/智能
-;;=================================================
+;;==========================================================
 ;; company 补全
 ;; http://company-mode.github.io/
 ;; https://github.com/company-mode/company-mode
@@ -214,9 +226,157 @@
         company-begin-commands '(self-insert-command org-self-insert-command ))	;;设置在org-mode 模式下自动补全
   (push '(company-semantic :with company-yasnippet) company-backends) ;; 将 company-semantic 和 company-yasnippet 后端添加到 company-backends 列表的末尾
   :hook ((after-init . global-company-mode))      ;; 开机就启动
+  ;;:custom
+  ;;(lsp-headerline-breadcrumb-enable t)
+  ;;(lsp-headerline-breadcrumb-enable-symbol-numbers t)
   )
 
-;;=================================================
+;;----------------------------------------------------------
+;; which-key 按键提示，辅助记忆组合键
+;; 当按下一个快捷键的时候， which-key 会提示接下来可能全部的快捷键
+;; https://github.com/justbur/emacs-which-key
+;;
+;;开启/关闭 M-x which-key-mode
+;; 
+(use-package which-key
+  :defer nil
+  :config
+  (which-key-mode)
+  ;; 美化：
+  (add-to-list 'which-key-replacement-alist '(("TAB" . nil) . ("↹" . nil)))
+  (add-to-list 'which-key-replacement-alist '(("ESC" . nil) . ("␛" . nil)))
+  (add-to-list 'which-key-replacement-alist '(("RET" . nil) . ("⏎" . nil)))
+  (add-to-list 'which-key-replacement-alist '(("DEL" . nil) . ("⇤" . nil)))
+  (add-to-list 'which-key-replacement-alist '(("SPC" . nil) . ("␣" . nil)))
+  )
 
+
+;;----------------------------------------------------------
+;; flycheck 语法检查
+;; https://github.com/flycheck/flycheck
+;; https://www.flycheck.org/en/latest/
+;;
+;; 语法检查器
+;;   可以用 `C-c ! s` 来选择语法检查器，如果没有的话可以安装
+;;   $ pip install pylint # 安装python的语法检查器
+;;   $ npm install eslint # 安装Java的语法检查器
+;;
+;; | 快捷键  | 功能                                |
+;; |---------+-------------------------------------|
+;; | C-c t f | f                                   |
+;; | C-c ! v | 检查您的 Flycheck 设置是否已完成    |
+;; | C-c ! V | 检查您的 Flycheck 版本信息          |
+;; |         |                                     |
+;; | C-c ! p | 跳转到上个报错的地方                |
+;; | C-c ! n | 跳转到下个报错的地方                |
+;; | C-c ! l | 列出当前缓冲区中所有的报错error信息 |
+;; |         |                                     |
+;; | C-c ! i | 打开浏览器官方文档                  |
+;; |         |                                     |
+;; | C-c ! s | 选择语法检查器                      |
+;;
+;;
+(use-package flycheck
+  :init (global-flycheck-mode)
+  :hook
+  (prog-mode . flycheck-mode)    ;; 只在编程语言下启用
+  ;;(after-init . global-flycheck-mode)
+  )
+
+;;----------------------------------------------------------
+;; lsp
+;; https://emacs-lsp.github.io/lsp-mode/
+;; https://github.com/emacs-lsp/lsp-mode
+;; 查看快捷键：https://emacs-lsp.github.io/lsp-mode/page/keybindings/
+;; 
+;; 使用 M-x lsp-doctor 验证您的 lsp-mode 是否配置正确
+;; 
+(use-package lsp-mode
+  :init
+  ;;(add-to-list 'company-backends 'company-capf)
+  ;; (setq lsp-prefer-flymake nil;; 因为已经安装 fly-check 所以不需要使用
+	;; lsp-keep-workspace-alive nil ;; Auto kill LSP server
+	;; lsp-enable-indentation nil
+	;; lsp-enable-on-type-formatting nil
+	;; lsp-auto-guess-root nil
+	;; lsp-enable-snippet t
+	;; )
+  (setq lsp-keymap-prefix "C-c l")
+  ;;:config (  
+	   ;;(with-eval-after-load 'lsp-mode ;;忽略项目中某些文件/文件夹 详见：https://emacs-lsp.github.io/lsp-mode/page/file-watchers/
+             ;; (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.my-folder\\'")
+             ;; or
+             ;; (add-to-list 'lsp-file-watch-ignored-files "[/\\\\]\\.my-files\\'"))
+	     ;;(add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.git\\'")
+	   ;;(setq lsp-log-io nil)  ;; 关闭日志记录，提高工作性能
+  ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
+  ;; 为 lsp-command-keymap 设置一个前缀(很少有人设置成 "C-l" 或 "C-c l")
+    
+  :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
+         ;; (XXX-mode . lsp) 或者 (XXX-mode . lsp-deferred)
+	 ;; lsp 与 lsp-deferred 区别就是 lsp 开启emacs就启动，lsp-deferred 是进入某个模式启动
+	 ;; (prog-mode . lsp-deferred) ;; 全部编程语言
+	 (c++-mode . lsp-deferred)
+	 (c-mode . lsp-deferred)
+	 (java-mode . lsp-deferred)
+	 (org-mode . lsp-deferred)
+	 ;;(go-mode . lsp-deferred)
+	 ;;(js-mode . lsp-deferred)
+	 ;;(html-mode . lsp-deferred)
+	 
+         ;; 如果已经安装 which-key 插件，可以将 lsp 整合到 which-key 中
+         (lsp-mode . lsp-enable-which-key-integration))
+  :commands (lsp lsp-deferred)
+  )
+
+;; 2mb 一些语言服务器响应在 800k - 3M 范围内，emacs 默认值太低 4k,增加 Emacs 从进程中读取的数据量
+(setq read-process-output-max (* 2048 2048)) ;; 这个不能写到 use-package 配置里面
+
+;; company-lsp 针对 lsp 的company后端
+;; https://github.com/tigersoldier/company-lsp
+;; 项目已经作废
+
+;; lsp-ui 提供 lsp-mode 的所有更高级别的 UI 模块，比如 flycheck 支持和代码块显示
+;; https://emacs-lsp.github.io/lsp-ui/
+;; https://github.com/emacs-lsp/lsp-ui
+;; 除非将 `lsp-auto-configure` 设置成 nil ，否则启动lsp-mode 就会自启动 lsp-ui
+;;
+(use-package lsp-ui
+  :after lsp-mode
+  :hook (lsp-mode . lsp-ui-mode)
+  :init (setq lsp-ui-doc-enable t
+	      lsp-ui-doc-use-webkit nil
+	      lsp-ui-doc-delay 0
+	      lsp-ui-doc-include-signature t
+	      lsp-ui-doc-position 'at-point
+	      lsp-eldoc-enable-hover nil
+	      lsp-ui-sideline-enable t
+	      lsp-ui-sideline-show-hover nil
+	      lsp-ui-sideline-show-diagnostics nil
+	      lsp-ui-sideline-ignore-duplicate t)
+  :config (setq lsp-ui-flycheck-enable t)
+  :commands lsp-ui-mode)
+
+(use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
+(use-package lsp-treemacs :commands lsp-treemacs-errors-list)
+;;----------------------------------------------------------
+;; 安装语言服务器
+;;
+;; C/C++
+;; 采用 ccls
+;; https://github.com/MaskRay/ccls
+;; 参考：https://github.com/MaskRay/ccls/wiki/lsp-mode
+;;
+;;
+(use-package ccls
+  ;;:config ((setq lsp-prefer-flymake nil)          ;; ccls 默认使用 flymake，这里禁用
+	;;   
+	;;   )
+  :hook ((c-mode c++-mode objc-mode cuda-mode) .
+         (lambda () (require 'ccls) (lsp))))
+(setq ccls-executable "/usr/bin/ccls") ;; 设置 ccls 的执行位置
+
+;;==========================================================
+;;==========================================================
 ;;文档结束
 (provide 'my_use_package)
