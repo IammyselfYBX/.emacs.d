@@ -15,6 +15,7 @@
 ;;;    :config         ; 基本配置参数
 ;;;    :bind           ; 快捷键的绑定
 ;;;    :hook           ; hook模式的绑定
+;;;    :commands       ; 用于指定加载包时将加载的命令
 ;;; )
 
 ;;==========================================================
@@ -111,6 +112,13 @@
     (global-set-key (kbd "<f9>") 'linum-mode) ;;设置快捷键
     ;;    (global-display-line-numbers-mode t)
     )
+
+;;----------------------------------------------------------
+;; ivy-posframe 修改 mini-buffer
+;; https://github.com/tumashu/ivy-posframe
+;;
+;; 前提是得安装 ivy
+;;
 
 ;;----------------------------------------------------------
 ;; 字体设置 cnfonts
@@ -218,7 +226,30 @@
         company-begin-commands '(self-insert-command org-self-insert-command ))	;;设置在org-mode 模式下自动补全
   (push '(company-semantic :with company-yasnippet) company-backends) ;; 将 company-semantic 和 company-yasnippet 后端添加到 company-backends 列表的末尾
   :hook ((after-init . global-company-mode))      ;; 开机就启动
+  ;;:custom
+  ;;(lsp-headerline-breadcrumb-enable t)
+  ;;(lsp-headerline-breadcrumb-enable-symbol-numbers t)
   )
+
+;;----------------------------------------------------------
+;; which-key 按键提示，辅助记忆组合键
+;; 当按下一个快捷键的时候， which-key 会提示接下来可能全部的快捷键
+;; https://github.com/justbur/emacs-which-key
+;;
+;;开启/关闭 M-x which-key-mode
+;; 
+(use-package which-key
+  :defer nil
+  :config
+  (which-key-mode)
+  ;; 美化：
+  (add-to-list 'which-key-replacement-alist '(("TAB" . nil) . ("↹" . nil)))
+  (add-to-list 'which-key-replacement-alist '(("ESC" . nil) . ("␛" . nil)))
+  (add-to-list 'which-key-replacement-alist '(("RET" . nil) . ("⏎" . nil)))
+  (add-to-list 'which-key-replacement-alist '(("DEL" . nil) . ("⇤" . nil)))
+  (add-to-list 'which-key-replacement-alist '(("SPC" . nil) . ("␣" . nil)))
+  )
+
 
 ;;----------------------------------------------------------
 ;; flycheck 语法检查
@@ -252,27 +283,42 @@
   ;;(after-init . global-flycheck-mode)
   )
 
-
 ;;----------------------------------------------------------
-;; which-key 按键提示，辅助记忆组合键
-;; 当按下一个快捷键的时候， which-key 会提示接下来可能全部的快捷键
-;; https://github.com/justbur/emacs-which-key
-;;
-;;开启/关闭 M-x which-key-mode
+;; lsp
+;; https://emacs-lsp.github.io/lsp-mode/
+;; https://github.com/emacs-lsp/lsp-mode
+;; 查看快捷键：https://emacs-lsp.github.io/lsp-mode/page/keybindings/
 ;; 
-(use-package which-key
-  :defer nil
-  :config
-  (which-key-mode)
-  (setq which-key-popup-type 'minibuffer)
-  ;; 美化：
-  (add-to-list 'which-key-replacement-alist '(("TAB" . nil) . ("↹" . nil)))
-  (add-to-list 'which-key-replacement-alist '(("ESC" . nil) . ("␛" . nil)))
-  (add-to-list 'which-key-replacement-alist '(("RET" . nil) . ("⏎" . nil)))
-  (add-to-list 'which-key-replacement-alist '(("DEL" . nil) . ("⇤" . nil)))
-  (add-to-list 'which-key-replacement-alist '(("SPC" . nil) . ("␣" . nil)))
+;; 使用 M-x lsp-doctor 验证您的 lsp-mode 是否配置正确
+;; 
+(use-package lsp-mode
+  :init (setq lsp-prefer-flymake nil ;; 因为已经安装 fly-check 所以不需要使用
+	      )
+  :config ((setq read-process-output-max (* 1024 1024)) ;; 2mb 一些语言服务器响应在 800k - 3M 范围内，emacs 默认值太低 4k,增加 Emacs 从进程中读取的数据量
+	   ;;(with-eval-after-load 'lsp-mode ;;忽略项目中某些文件/文件夹 详见：https://emacs-lsp.github.io/lsp-mode/page/file-watchers/
+             ;; (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.my-folder\\'")
+             ;; or
+             ;; (add-to-list 'lsp-file-watch-ignored-files "[/\\\\]\\.my-files\\'"))
+	     ;;(add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.git\\'")
+	     ;;(setq lsp-log-io nil)  ;; 关闭日志记录，提高工作性能
+	   )
+  ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
+  ;; 为 lsp-command-keymap 设置一个前缀(很少有人设置成 "C-l" 或 "C-c l")
+  (setq lsp-keymap-prefix "C-c l")
+  :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
+         ;; (XXX-mode . lsp) 或者 (XXX-mode . lsp-deferred)
+	 ;; lsp 与 lsp-deferred 区别就是 lsp 开启emacs就启动，lsp-deferred 是进入某个模式启动
+	 (c++-mode . lsp-deferred)
+	 (c-mode . lsp-deferred)
+	 (java-mode . lsp-deferred)
+	 (org-mode . lsp-deferred)
+         ;; 如果已经安装 which-key 插件，可以将 lsp 整合到 which-key 中
+         (lsp-mode . lsp-enable-which-key-integration))
+  :commands (lsp lsp-deferred)
   )
 
+;;  (use-package lsp-ui
+;;    :commands lsp-ui-mode)
 
 ;;==========================================================
 ;;==========================================================
