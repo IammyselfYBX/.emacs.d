@@ -292,33 +292,89 @@
 ;; 使用 M-x lsp-doctor 验证您的 lsp-mode 是否配置正确
 ;; 
 (use-package lsp-mode
-  :init (setq lsp-prefer-flymake nil ;; 因为已经安装 fly-check 所以不需要使用
-	      )
-  :config ((setq read-process-output-max (* 1024 1024)) ;; 2mb 一些语言服务器响应在 800k - 3M 范围内，emacs 默认值太低 4k,增加 Emacs 从进程中读取的数据量
+  :init
+  ;;(add-to-list 'company-backends 'company-capf)
+  (setq lsp-prefer-flymake nil;; 因为已经安装 fly-check 所以不需要使用
+	lsp-keep-workspace-alive nil ;; Auto kill LSP server
+	lsp-enable-indentation nil
+	lsp-enable-on-type-formatting nil
+	lsp-auto-guess-root nil
+	lsp-enable-snippet t
+	)
+  (setq lsp-keymap-prefix "C-c l")
+  ;;:config (  
 	   ;;(with-eval-after-load 'lsp-mode ;;忽略项目中某些文件/文件夹 详见：https://emacs-lsp.github.io/lsp-mode/page/file-watchers/
              ;; (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.my-folder\\'")
              ;; or
              ;; (add-to-list 'lsp-file-watch-ignored-files "[/\\\\]\\.my-files\\'"))
 	     ;;(add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.git\\'")
-	     ;;(setq lsp-log-io nil)  ;; 关闭日志记录，提高工作性能
-	   )
+	   ;;(setq lsp-log-io nil)  ;; 关闭日志记录，提高工作性能
   ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
   ;; 为 lsp-command-keymap 设置一个前缀(很少有人设置成 "C-l" 或 "C-c l")
-  (setq lsp-keymap-prefix "C-c l")
+    
   :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
          ;; (XXX-mode . lsp) 或者 (XXX-mode . lsp-deferred)
 	 ;; lsp 与 lsp-deferred 区别就是 lsp 开启emacs就启动，lsp-deferred 是进入某个模式启动
+	 ;; (prog-mode . lsp-deferred) ;; 全部编程语言
 	 (c++-mode . lsp-deferred)
 	 (c-mode . lsp-deferred)
 	 (java-mode . lsp-deferred)
 	 (org-mode . lsp-deferred)
+	 ;;(go-mode . lsp-deferred)
+	 ;;(js-mode . lsp-deferred)
+	 ;;(html-mode . lsp-deferred)
+	 
          ;; 如果已经安装 which-key 插件，可以将 lsp 整合到 which-key 中
          (lsp-mode . lsp-enable-which-key-integration))
   :commands (lsp lsp-deferred)
   )
 
-;;  (use-package lsp-ui
-;;    :commands lsp-ui-mode)
+;; 2mb 一些语言服务器响应在 800k - 3M 范围内，emacs 默认值太低 4k,增加 Emacs 从进程中读取的数据量
+(setq read-process-output-max (* 2048 2048)) ;; 这个不能写到 use-package 配置里面
+
+;; company-lsp 针对 lsp 的company后端
+;; https://github.com/tigersoldier/company-lsp
+;; 项目已经作废
+
+;; lsp-ui 提供 lsp-mode 的所有更高级别的 UI 模块，比如 flycheck 支持和代码块显示
+;; https://emacs-lsp.github.io/lsp-ui/
+;; https://github.com/emacs-lsp/lsp-ui
+;; 除非将 `lsp-auto-configure` 设置成 nil ，否则启动lsp-mode 就会自启动 lsp-ui
+;;
+(use-package lsp-ui
+  :after lsp-mode
+  :hook (lsp-mode . lsp-ui-mode)
+  :init (setq lsp-ui-doc-enable t
+	      lsp-ui-doc-use-webkit nil
+	      lsp-ui-doc-delay 0
+	      lsp-ui-doc-include-signature t
+	      lsp-ui-doc-position 'at-point
+	      lsp-eldoc-enable-hover nil
+	      lsp-ui-sideline-enable t
+	      lsp-ui-sideline-show-hover nil
+	      lsp-ui-sideline-show-diagnostics nil
+	      lsp-ui-sideline-ignore-duplicate t)
+  :config (setq lsp-ui-flycheck-enable t)
+  :commands lsp-ui-mode)
+
+(use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
+(use-package lsp-treemacs :commands lsp-treemacs-errors-list)
+;;----------------------------------------------------------
+;; 安装语言服务器
+;;
+;; C/C++
+;; 采用 ccls
+;; https://github.com/MaskRay/ccls
+;; 参考：https://github.com/MaskRay/ccls/wiki/lsp-mode
+;;
+;;
+(use-package ccls
+  :config ((setq lsp-prefer-flymake nil)          ;; ccls 默认使用 flymake，这里禁用
+	   
+	   )
+  :hook ((c-mode c++-mode objc-mode cuda-mode) .
+         (lambda () (require 'ccls) (lsp))))
+(setq ccls-executable "/usr/bin/ccls") ;; 设置 ccls 的执行位置
 
 ;;==========================================================
 ;;==========================================================
