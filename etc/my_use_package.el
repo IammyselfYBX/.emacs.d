@@ -23,11 +23,12 @@
 ;;----------------------------------------------------------
 ;; 引入判断操作系统的库
 (add-to-list 'load-path "~/.emacs.d/lib/OS")
-(require 'judge_os)
+(require 'judge_os)        ;; 这里是判断操作系统
 
 ;; 引入emacs 的自定义库
 (add-to-list 'load-path "~/.emacs.d/lib/emacs")
-(require 'interaction-log)
+(require 'interaction-log) ;; 这个是交互显示 emacs log 的
+;; 想打开 M-x interaction-log-mode 然后 C-x b 在缓冲区就能查看
 
 
 ;;==========================================================
