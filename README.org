@@ -146,3 +146,6 @@ M-x cnfonts-edit-profile
 ----------
 [[https://github.com/IammyselfYBX/.emacs.d/wiki][使用手册]]
 
+
+* 参考
+1.[[https://github.com/emacs-tw/awesome-emacs][Awesome Emacs]]
