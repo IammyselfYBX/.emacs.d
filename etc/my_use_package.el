@@ -363,7 +363,7 @@
 	      lsp-ui-sideline-enable t
 	      lsp-ui-sideline-show-hover nil
 	      lsp-ui-doc-show-with-cursor nil  ;; 当光标移到符号的位置显示文档
-	      lsp-ui-doc-show-with-mouse t   ;; 当鼠标移到符号的位置显示文档
+	      lsp-ui-doc-show-with-mouse t     ;; 当鼠标移到符号的位置显示文档
 	      lsp-ui-sideline-show-diagnostics nil
 	      lsp-ui-sideline-ignore-duplicate t)
 ;;  (add-hook 'lsp-mode-hook 'lsp-ui-mode)
