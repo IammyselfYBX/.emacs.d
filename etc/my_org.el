@@ -56,7 +56,13 @@
 ;;;; (add-to-list 'org-latex-default-packages-alist '("" "ctex" t ("xelatex")))
 
 ;;----------------------------------------------------------
-;;;; 在缓冲区显示大纲
+;; 在缓冲区显示大纲
+;; Imenu
+;; 生成用于访问文档中位置的菜单，通常在当前缓冲区(有可以通过在 普通菜单 或 迷你缓冲区minibuffer )中显示
+;;   https://www.gnu.org/software/emacs/manual/html_node/emacs/Imenu.html
+;;   https://www.emacswiki.org/emacs/ImenuMode
+;; 可以将 Imenu 与任何主要模式和任何编程语言或文档类型一起使用。
+;; 如果您的上下文没有 Imenu 支持，您可以使用 EmacsLisp 和库 imenu.el 中提供的构造来添加它。
 (add-to-list 'load-path "~/.emacs.d/lib/org/")
 (require 'imenu-list)
 (setq org-imenu-depth 10)

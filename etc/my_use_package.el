@@ -156,12 +156,23 @@
 ;;==========================================================
 ;; 文本编辑——强化搜索
 ;;==========================================================
+;; 其实 emacs 中原生自带了 IDO 与 Icomplete 还有 FIDO (不用安装第三方软件)
+;; IDO 是给出命令的建议或者候选
+;;   https://www.emacswiki.org/emacs/InteractivelyDoThings
+;;
+;; Icomplete 可以简单的理解为 自动代码(补全)命令
+;;   https://www.gnu.org/software/emacs/manual/html_node/emacs/Icomplete.html
+;;   https://www.emacswiki.org/emacs/IcompleteMode
+;;
+;; FIDO 可以理解成 IDO 与 Icomplete 两者的结合
+;; (fido-mode t) ;;启用fido
+;;
 ;; ivy-counsel-swiper三剑客，同时优化了一系列 Minibuffer 的操作
 ;; https://github.com/abo-abo/swiper
 
 ;; ivy是一个通用的命令补全接口
 ;;  主要是为Counsel 和 Swiper 提供基础支持
-;;  ivy 的补全是通过 Minibuffer 来显示的
+;;   ivy 的补全是通过 Minibuffer 来显示的
 (use-package ivy
   :defer 1
   :demand
@@ -236,6 +247,23 @@
   ;;(lsp-headerline-breadcrumb-enable t)
   ;;(lsp-headerline-breadcrumb-enable-symbol-numbers t)
   )
+
+;;----------------------------------------------------------
+;; yasnippet
+;; https://github.com/joaotavora/yasnippet
+;; (use-package yasnippet                 
+;;  :config
+  ;;(with-eval-after-load 'yasnippet
+  ;;  ;;(validate-setq yas-snippet-dirs '(yasnippet-snippets-dir))
+  ;;  (validate-setq yas-snippet-dirs "~/.emacs.d/lib/snippets")
+  ;;  )
+;;  (add-to-list 'yas-snippet-dirs "~/.emacs.d/lib/snippets")
+;;  (yas-global-mode t))
+
+;; yasnippet-snippets
+;; https://github.com/AndreaCrotti/yasnippet-snippets
+;;(use-package yasnippet-snippets)
+
 
 ;;----------------------------------------------------------
 ;; which-key 按键提示，辅助记忆组合键
