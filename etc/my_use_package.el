@@ -25,6 +25,11 @@
 (add-to-list 'load-path "~/.emacs.d/lib/OS")
 (require 'judge_os)
 
+;; 引入emacs 的自定义库
+(add-to-list 'load-path "~/.emacs.d/lib/emacs")
+(require 'interaction-log)
+
+
 ;;==========================================================
 ;; 总体设置
 ;;==========================================================
