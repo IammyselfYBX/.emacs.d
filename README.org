@@ -48,7 +48,7 @@ $> mv /mnt/d/lsp-mode-autoloads.el ~/.emacs.d/elpa/lsp-mode-20210227.1401/
 **** 语言服务器
 [[https://emacs-lsp.github.io/lsp-mode/page/languages/][官网提供]]
 
-***** C/C++
+***** C/C+ +
 我选择的是 ccls
 #+BEGIN_SRC bash
 # 安装ccls
@@ -77,9 +77,27 @@ $> which ccls
   $> echo "export PATH=$PATH:/home/tony/.local/bin/" >> ~/.bash_profile 
 #+END_SRC
 
+*** flycheck
+[[https://www.flycheck.org/en/latest/languages.html][flycheck语言服务器]]
+**** 安装具体检查工具
+#+begin_src bash
+  # 为 C/C++ 安装
+  ## 使用 Clang 或 GCC 检查 C/C++ 的语法和类型错误
+  pacman -S gcc   # 安装 gcc
+  pacman -S clang # 或者 安装clang 
+
+  # 为 Python 安装
+  ## Flycheck 使用 python-flake8 或 python-pylint 检查 Python，如果两者都不可用，则回退到 python-pycompile 。 
+  pip install pylint
+
+  # 为 JavaScript 安装
+  npm install eslint
+
+#+end_src
 
 # 这是分割线
 ---------
+
 
 ** 安装
 #+begin_src bash
