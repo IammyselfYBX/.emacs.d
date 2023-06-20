@@ -34,12 +34,12 @@
 ;;==========================================================
 ;; 总体设置
 ;;==========================================================
-(eval-when-compile                        ;; 在 emacs 启动的时候进行编译
-  (setq use-package-always-ensure t)    ;; 不用每个包手动添加:ensure t
+(eval-when-compile                         ;; 在 emacs 启动的时候进行编译
+  (setq use-package-always-ensure t)       ;; 不用每个包手动添加:ensure t
+  (setq use-package-always-demand nil)     ;; use-package 仅在另一个包明确需要时才加载该包。这有助于通过减少 Emacs 启动时加载的包的数量来提高性能。  
   ;; (setq use-package-always-defer t)     ;;默认都是延迟加载，这对 benchmark-init 来说不是很好
-  ;; (setq use-package-always-demand nil)    ;; 
-  (setq use-package-expand-minimally t)
-  (setq use-package-verbose t)
+  (setq use-package-expand-minimally t)    ;; 告诉 use-package 只在必要时扩展 use-package 声明。这有助于提高性能。
+  (setq use-package-verbose t)             ;; 告诉 use-package 在加载包时更详细。这有助于调试问题
   )
   
 ;;----------------------------------------------------------
@@ -216,12 +216,13 @@
 ;;
 ;;  简单来说 dabbrev 是 Emacs 的内置包，通过对当前缓冲区的文本进行搜索来完成匹配功能
 ;;  company 是通过添加许多包来完善 dabbrev 功能(eg:为语义信息、片段和其他类型的数据提供补全的能力)
-;;  comapny 的后端就是 `company-dabbrev`
+;;  company 的后端就是 `company-dabbrev`
 ;;    它的工作原理是使用 dabbrev 包在当前缓冲区的文本中搜索匹配项
 ;;    可以配置补全候选的最小长度，是否忽略大小写，是否在注释和字符串中进行搜索
 ;;    company-dabbrev 后端默认仅在当前缓冲区中搜索完成候选，但是 "company-dabbrev-code-other-buffers" 可以设置其他缓冲区
 ;;  company-backends 是 company 提供完成候选的所有后端的列表。
 ;;    列表中后端的顺序很重要，因为列表中的第一个后端将首先使用，然后是第二个后端，依此类推。
+;;    https://company-mode.github.io/manual/Backends.html
 ;;  company-semantic 是根据语义补全的后端
 ;;  company-yasnippet 是根据 yasnippet 补全的后端
 ;;  
@@ -239,30 +240,46 @@
         company-tooltip-limit 20                  ;; 候选次最多 20 个
         company-idle-delay 0                      ;; 当用户停止输入 0 秒(默认是 0.2)后，弹出候选框
         company-echo-delay 0                      ;; 当用户停止输入 0 秒(默认是 0.1)后，候选框显示候选词
+	;;company-lsp-enable-snippet t              
         company-tooltip-offset-display 'scrollbar ;; 如果候选词比较多，以滚动条的形式显示 | 另一个选项是 (setq company-tooltip-offset-display 'lines) 就是全部显示
         company-begin-commands '(self-insert-command org-self-insert-command ))	;;设置在org-mode 模式下自动补全
-  (push '(company-semantic :with company-yasnippet) company-backends) ;; 将 company-semantic 和 company-yasnippet 后端添加到 company-backends 列表的末尾
+  (push '(company-semantic :with company-yasnippet) company-backends)  ;; 将 company-semantic 和 company-yasnippet 后端添加到 company-backends 列表的末尾
   :hook ((after-init . global-company-mode))      ;; 开机就启动
   ;;:custom
   ;;(lsp-headerline-breadcrumb-enable t)
   ;;(lsp-headerline-breadcrumb-enable-symbol-numbers t)
+  :bind
+  ;; ("C-TAB" . company-complete)
+  ("C-c y y" . company-yasnippet)                   ;; 显示 yasnippet 的补全
+  ;; (global-set-key (kbd "C-c y") 'company-yasnippet)
   )
 
 ;;----------------------------------------------------------
 ;; yasnippet
 ;; https://github.com/joaotavora/yasnippet
-;; (use-package yasnippet                 
-;;  :config
+(use-package yasnippet
+  :diminish yas-minor-mode
+  :config
+  (yas-global-mode 1)
+  (setq yas-snippet-dirs '("~/.emacs.d/lib/snippets"))
+  ;;(add-to-list 'yas-snippet-dirs "~/.emacs.d/lib/snippets")
   ;;(with-eval-after-load 'yasnippet
   ;;  ;;(validate-setq yas-snippet-dirs '(yasnippet-snippets-dir))
   ;;  (validate-setq yas-snippet-dirs "~/.emacs.d/lib/snippets")
   ;;  )
-;;  (add-to-list 'yas-snippet-dirs "~/.emacs.d/lib/snippets")
-;;  (yas-global-mode t))
+  ;;(yas-global-mode t)
+  ;;(setq yasnippet-snippets--fixed-indent nil)
+  :hook
+  ((prog-mode text-mode) . yas-minor-mode)
+  :custom
+  ;; 模板展开时，缩进保持不变
+  (yas-indent-line 'fixed)
+  :bind
+  ("C-c y s" . yas-insert-snippet)     ;; 插入 snippet 片段
+  ("C-c y v" . yas-visit-snippet-file) ;; 查看 snippet 内容
+  )
+;;
 
-;; yasnippet-snippets
-;; https://github.com/AndreaCrotti/yasnippet-snippets
-;;(use-package yasnippet-snippets)
 
 
 ;;----------------------------------------------------------
@@ -327,14 +344,18 @@
 ;; 
 (use-package lsp-mode
   :init
-  ;;(add-to-list 'company-backends 'company-capf)
-  ;; (setq lsp-prefer-flymake nil;; 因为已经安装 fly-check 所以不需要使用
-	;; lsp-keep-workspace-alive nil ;; Auto kill LSP server
+  ;; (add-to-list 'company-backends 'company-capf)
+  ;; (setq lsp-prefer-flymake nil            ;; 因为已经安装 fly-check 所以不需要使用
+	;; lsp-keep-workspace-alive nil      ;; Auto kill LSP server
 	;; lsp-enable-indentation nil
 	;; lsp-enable-on-type-formatting nil
 	;; lsp-auto-guess-root nil
 	;; lsp-enable-snippet t
-	;; )
+        ;; )
+  ;; (add-hook 'lsp-completion-mode-hook (lambda ()
+  ;;                                      (when lsp-completion-mode
+  ;;                                        (set (make-local-variable 'company-backends)
+  ;;                                             (remq 'company-capf company-backends)))))
   (defun lsp-save-actions ()
     "LSP actions before save."
     (add-hook 'before-save-hook #'lsp-organize-imports t t)
@@ -407,7 +428,13 @@
   :commands lsp-ui-mode)
 
 (use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
-(use-package lsp-treemacs :commands lsp-treemacs-errors-list)
+;; lsp-treemacs 提供项目目录树
+;; https://github.com/emacs-lsp/lsp-treemacs
+(use-package lsp-treemacs
+  :after lsp
+  :commands lsp-treemacs-errors-list)
+
+
 ;;----------------------------------------------------------
 ;; 安装语言服务器
 ;;
@@ -431,6 +458,7 @@
 ;; dap-mode以及对应的调试器
 ;; https://github.com/emacs-lsp/dap-mode
 ;; https://emacs-lsp.github.io/dap-mode
+;; https://emacs-lsp.github.io/dap-mode/page/configuration/
 ;;
 ;;; (use-package dap-mode
 ;;;     :init
