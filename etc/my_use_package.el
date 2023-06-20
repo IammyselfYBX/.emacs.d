@@ -34,10 +34,10 @@
 ;;==========================================================
 ;; 总体设置
 ;;==========================================================
-(eval-when-compile
+(eval-when-compile                        ;; 在 emacs 启动的时候进行编译
   (setq use-package-always-ensure t)    ;; 不用每个包手动添加:ensure t
-  (setq use-package-always-defer t)     ;;默认都是延迟加载
-  (setq use-package-always-demand nil)
+  ;; (setq use-package-always-defer t)     ;;默认都是延迟加载，这对 benchmark-init 来说不是很好
+  ;; (setq use-package-always-demand nil)    ;; 
   (setq use-package-expand-minimally t)
   (setq use-package-verbose t)
   )
@@ -374,8 +374,8 @@
   :commands (lsp lsp-deferred)
   )
 
-;; 2mb 一些语言服务器响应在 800k - 3M 范围内，emacs 默认值太低 4k,增加 Emacs 从进程中读取的数据量
-(setq read-process-output-max (* 2048 2048)) ;; 这个不能写到 use-package 配置里面
+ ;; 2mb 一些语言服务器响应在 800k - 3M 范围内，emacs 默认值太低 4k,增加 Emacs 从进程中读取的数据量
+ (setq read-process-output-max (* 2048 2048)) ;; 这个不能写到 use-package 配置里面
 
 ;; company-lsp 针对 lsp 的company后端
 ;; https://github.com/tigersoldier/company-lsp
