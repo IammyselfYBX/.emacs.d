@@ -111,10 +111,11 @@
 ;; keycast 显示emacs按键和执行函数
 ;; https://github.com/tarsius/keycast
 (use-package keycast
-  :init  (keycast-mode-line-mode)
+  :init
+  ;;(keycast-mode-line-mode )
   :config
-  (setq ;;keycast-mode-line-mode t
-   ;;keycast-header-line-mode t  ;; 左上角显示
+  (setq keycast-mode-line-mode nil    ;; 初始化不打开 需要打开 M-x keycast-mode RET 
+        ;;keycast-header-line-mode t  ;; 左上角显示
 	keycast-tab-bar-mode t)       ;; 在 mode-line 上显示
   )
 
