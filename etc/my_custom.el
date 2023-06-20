@@ -143,8 +143,8 @@
 ;;----------------------------------------------------------
 ;; python 
 ;; 解决emacs 打开python 报错 : emacs can't guess python-indent-offset using defaults 4
-(setq python-indent-guess-indent-offset t)  
-(setq python-indent-guess-indent-offset-verbose nil)
+(setq python-indent-guess-indent-offset t)           ;; emacs推测python的缩进
+(setq python-indent-guess-indent-offset-verbose nil) ;; emacs 不显示上述提示
 
 
 ;;==========================================================
