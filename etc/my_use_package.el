@@ -204,6 +204,7 @@
 (use-package swiper
   :after ivy
   :bind (("C-f" . swiper)
+	 ;;("C-r" .swiper)
          ("C-S-f" . swiper-isearch-backward))
   :config (setq swiper-action-recenter t
                 swiper-include-line-number-in-search t))
@@ -211,6 +212,7 @@
 ;; Counsel 主要是将emacs中的一些命令功能增强了，这些命令经过定制以充分利用 Ivy
 ;;   安装Counsel将同时安装Ivy和Swiper作为依赖
 ;;   其中 ivy 和 swiper 都是为增强 Counsel 服务的
+;;   M-x counsel-rg 查询含某些字段的文档
 (use-package counsel
   :after (ivy)
   :bind (("M-x" . counsel-M-x)           ;; 替换emacs原生的 M-x 键
@@ -384,9 +386,10 @@
   ;; 为 lsp-command-keymap 设置一个前缀(很少有人设置成 "C-l" 或 "C-c l")
   :config
   (setq lsp-auto-guess-root t
-	    lsp-headerline-breadcrumb-enable nil
-	    lsp-keymap-prefix "C-c l"
-	    lsp-log-io nil)
+	lsp-headerline-breadcrumb-enable nil
+	lsp-prefer-flymake nil
+	lsp-keymap-prefix "C-c l"
+	lsp-log-io nil)
   (define-key lsp-mode-map (kbd "C-c l") lsp-command-map)
 
   :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)

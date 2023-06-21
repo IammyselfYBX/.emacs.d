@@ -10,7 +10,7 @@
 ;;==========================================================
 ;; UI界面
 ;;==========================================================
-(scroll-bar-mode -1);;关闭右侧的滚动条
+(scroll-bar-mode 1);;关闭右侧的滚动条
 (menu-bar-mode -1)  ;;关闭菜单栏
 (tool-bar-mode -1)  ;;关闭工具栏
 
@@ -97,6 +97,18 @@
 ;;----------------------------------------------------------
 ;;关闭字体缓存
 (setq inhibit-compacting-font-caches nil)
+
+;; 设置最近打开文件缓存路径
+(setq recentf-save-file "~/.emacs.d/var/recentf")
+;; 在离开文件时自动将光标的位置保存在文件中。这意味着当您再次打开文件时，光标将放回到同一位置。
+(setq save-place-file "~/.emacs.d/var/places")
+;; 设置书签文件路径
+(setq bookmark-default-file "~/.emacs.d/var/bookmarks")
+;;(setq bookmark-file "~/.emacs.d/var/bookmarks")
+;; 设置自动保存路径
+(setq auto-save-list-file-prefix "~/.emacs.d/var/auto-save-list/.saves~")
+;; 设置eshell 历史记录
+(setq eshell-history-file-name "~/.emacs.d/var/eshell/history")
 
 ;;----------------------------------------------------------
 ;;记录上一次关闭位置，打开自动跳转
