@@ -10,9 +10,11 @@
 ;;==========================================================
 ;; UI界面
 ;;==========================================================
-(scroll-bar-mode 1);;关闭右侧的滚动条
+(scroll-bar-mode -1);;关闭右侧的滚动条
 (menu-bar-mode -1)  ;;关闭菜单栏
 (tool-bar-mode -1)  ;;关闭工具栏
+;;(set-frame-parameter nil 'alpha '(20 . 100)) ;; 设置透明度，但是无效
+;; (set-cursor-color "green2") ;; 设置光标颜色，但是无效
 
 ;; 启动就是全屏
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
@@ -49,6 +51,8 @@
 (visual-line-mode t) 
 (global-visual-line-mode t) 
 
+;; 光标靠近鼠标时让鼠标自动走开
+;;(mouse-avoidance-mode 'jump) ;; 没用
 ;;----------------------------------------------------------
 ;; 字体设置
 ;;没有 cnfont 用下面的配置
@@ -80,6 +84,7 @@
 ;;----------------------------------------------------------
 ;设置垃圾回收阈值，加速启动速度
 (setq gc-cons-threshold most-positive-fixnum) ;; 因为现在内存比较大，所以垃圾回收就是内存的最大值
+(setq gc-cons-percentage 0.6)                 ;; 一旦达到 最大值的60% 就进行垃圾回收
 
 ;;----------------------------------------------------------
 ;;关闭备份
@@ -147,7 +152,7 @@
 ;; 用 ESC 替换 C-g
 ;;(global-set-key (kbd "<ESC>") (kbd "C-g"))
 ;; 用 C-z 变成撤销
-(global-set-key (kbd "C-z") (kbd "C-/"))
+(global-set-key (kbd "C-z") 'undo)
 
 
 ;;==========================================================

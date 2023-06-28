@@ -12,11 +12,13 @@
 ;;;    :ensure t       ; 是否一定确保已安装，没有包就自行安装
 ;;;    :defer nil      ; 是否延迟加载
 ;;;    :init           ; 初始化参数
-;;;    :config         ; 基本配置参数
+;;;    :config         ; 基本配置参数,可用于在加载包后执行代码
 ;;;    :bind           ; 快捷键的绑定
 ;;;    :hook           ; hook模式的绑定
-;;;    :commands       ; 用于指定加载包时将加载的命令
+;;;    :commands       ; 当使用 :commands 关键字时，它会为这些命令创建自动加载，并推迟模块的加载，直到使用它们为止。
+;;;    :autoload       ; 自动加载非交互功能
 ;;; )
+;;; :commands 、 :bind 、 :bind* 、 :bind-keymap 、 :bind-keymap* 、 :mode 和 :hook 都暗含 :defer(延迟加载)
 
 ;;==========================================================
 ;; 导入其他库函数
@@ -204,7 +206,7 @@
 (use-package swiper
   :after ivy
   :bind (("C-f" . swiper)
-	 ;;("C-r" .swiper)
+	 ;;("C-r" .swiper+)
          ("C-S-f" . swiper-isearch-backward))
   :config (setq swiper-action-recenter t
                 swiper-include-line-number-in-search t))
