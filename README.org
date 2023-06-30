@@ -123,6 +123,11 @@ git clone https://github.com/IammyselfYBX/.emacs.d.git
 
 实在不行就手动安装(详见 lsp-mode 的安装方式)
 
+*** pdftools
+#+begin_src bash
+  $> sudo pacman -S --needed base-devel libpng zlib poppler-glib
+#+end_src
+
 ** 文件结构
 #+begin_src bash
 ├── .emacs_cnfonts # 存储cnfonts所需的字体

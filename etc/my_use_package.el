@@ -222,6 +222,17 @@
          ("C-c f" . counsel-recentf)
          ("C-c g" . counsel-git)))
 
+;;==========================================================
+;;
+;;----------------------------------------------------------
+;; pdt-tools
+(use-package pdf-tools
+  :config
+  (pdf-tools-install) ;; initialise
+  (setq-default pdf-view-display-size 'fit-page)  ;; open pdfs scaled to fit page
+  (setq pdf-annot-activate-created-annotations t)   ;; automatically annotate highlights
+  ;;(define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward) ;; use normal isearch
+  )
 
 ;;==========================================================
 ;; 补全/检查/智能
