@@ -226,6 +226,7 @@
 ;;
 ;;----------------------------------------------------------
 ;; pdt-tools
+;; https://github.com/vedang/pdf-tools/
 (use-package pdf-tools
   :config
   (pdf-tools-install) ;; initialise
