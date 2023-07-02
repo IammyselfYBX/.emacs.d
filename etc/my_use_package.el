@@ -235,6 +235,19 @@
   ;;(define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward) ;; use normal isearch
   )
 
+;;----------------------------------------------------------
+;; org-noter
+;; https://github.com/weirdNox/org-noter
+;;
+(use-package org-noter
+  :after org
+  :config
+  (setq org-noter-default-notes-file-names '("notes.org")   ;;默认注释文件名
+	org-noter-notes-search-path '("~/Documents/notes") ;;Org note 还需要一个（或多个）搜索路径来搜索文档注释。
+	org-noter-separate-notes-from-heading t)
+  )
+
+
 ;;==========================================================
 ;; 补全/检查/智能
 ;;==========================================================
