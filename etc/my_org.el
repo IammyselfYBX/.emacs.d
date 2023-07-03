@@ -5,15 +5,15 @@
 (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
 
 ;; Babel 语言支持
-;;(org-babel-do-load-languages
-;; 'org-babel-load-languages
-;; '((R . t)
-;;   (python . t)
-;;   (ipython . t)
-;;   (C . t)
-;;   (latex . t)
-;;   (shell . t)
-;;   (emacs-lisp . t)))
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((R . t)
+   (python . t)
+   (ipython . t)
+   (C . t)
+   (latex . t)
+   (shell . t)
+   (emacs-lisp . t)))
 ;; (emacs-lisp . nil) 不需要那个就这样写
 
 ;; 不再询问是否允许执行代码块

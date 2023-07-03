@@ -164,6 +164,9 @@
      :hook
      (after-make-frame-functions . cnfonts-set-font)
      (cnfonts-set-font . cnfonts-set-font)
+     :bind
+     (("C-=" . cnfonts-increase-fontsize)
+      ("C--" . cnfonts-decrease-fontsize))
   )
 
 
@@ -229,11 +232,18 @@
 ;; https://github.com/vedang/pdf-tools/
 (use-package pdf-tools
   :config
-  (pdf-tools-install) ;; initialise
+  ;;(pdf-tools-install) ;; 打开emacs就启动
+  (pdf-loader-install)  ;; 打开pdf才启动
   (setq-default pdf-view-display-size 'fit-page)  ;; open pdfs scaled to fit page
-  (setq pdf-annot-activate-created-annotations t)   ;; automatically annotate highlights
+  (setq pdf-annot-activate-created-annotations t)   ;; automatically annotate highlights 自动注释亮点
   ;;(define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward) ;; use normal isearch
+  (setq native-comp-deferred-compilation-deny-list '(".*pdf.*")) ;; 禁用pdf-tools本地化编译
   )
+
+;;----------------------------------------------------------
+;; AUCTex
+;; https://www.gnu.org/software/auctex/
+;;(use-package auctex)
 
 ;;----------------------------------------------------------
 ;; org-noter
@@ -247,6 +257,9 @@
 	org-noter-separate-notes-from-heading t)
   )
 
+;;----------------------------------------------------------
+;; ob-ipython
+(use-package ob-ipython)
 
 ;;==========================================================
 ;; 补全/检查/智能

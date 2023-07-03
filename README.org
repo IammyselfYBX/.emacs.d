@@ -24,6 +24,11 @@ cd /mnt/texlive2023
 sudo ./install-tl
 #+end_src
 
+*** org-mode
+
+
+
+
 *** lsp-mode
 **** 安装可能失败
 第一次安装很可能下载失败，所以可能需要手动安装
