@@ -16,7 +16,7 @@ $> sudo pacman -S python-pip
 #+END_SRC
 
 *** Latex
-[[https://www.bilibili.com/video/BV1Zs4y1N7gJ/][通过ISO镜像安装Latex]]
+[[http://mirrors.ibiblio.org/CTAN/systems/texlive/Images/][镜像下载链接]]   [[https://www.bilibili.com/video/BV1Zs4y1N7gJ/][参考视频通过ISO镜像安装Latex]]
 #+begin_src bash
 sudo mkdir /mnt/texlive2023
 sudo mount -o loop texlive2023-20230313.iso /mnt/texlive2023
@@ -25,8 +25,17 @@ sudo ./install-tl
 #+end_src
 
 *** org-mode
+**** pdftools
+pdftools 是一款用来看pdf的插件，需要提前安装
+#+begin_src bash
+  $> sudo pacman -S --needed base-devel libpng zlib poppler-glib
+#+end_src
 
-
+**** 执行代码块
+#+begin_src bash
+  # 需要 ipython
+  pip install ipython
+#+end_src
 
 
 *** lsp-mode
@@ -109,7 +118,7 @@ $> which ccls
 git clone https://github.com/IammyselfYBX/.emacs.d.git
 #+end_src
 
-*** 安装插件
+*** 插件配置
 一般情况下是直接安装，但是有时会显示没有软件包，这是修改 my_elpa.el 试试
 #+BEGIN_SRC bash
 ;;更改国内源
@@ -128,10 +137,7 @@ git clone https://github.com/IammyselfYBX/.emacs.d.git
 
 实在不行就手动安装(详见 lsp-mode 的安装方式)
 
-*** pdftools
-#+begin_src bash
-  $> sudo pacman -S --needed base-devel libpng zlib poppler-glib
-#+end_src
+
 
 ** 文件结构
 #+begin_src bash
