@@ -268,6 +268,14 @@
 	org-noter-notes-search-path '("~/Documents/notes") ;;Org note 还需要一个（或多个）搜索路径来搜索文档注释。
 	org-noter-separate-notes-from-heading t)
   )
+;;----------------------------------------------------------
+;; org-fragtog
+;; https://github.com/io12/org-fragtog
+;; 光标离开公式输入的region之后自动调用 ```org-latex-preview``` 生成预览
+(use-package org-fragtog
+  :after org
+  :hook
+  (org-mode . org-fragtog-mode))
 
 ;;----------------------------------------------------------
 ;; ob-ipython
