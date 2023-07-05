@@ -1,9 +1,27 @@
 ;;==========================================================
 ;;org-mode
 ;;==========================================================
+
+;;----------------------------------------------------------
+;; 美化
+;;(org-ellipsis " ▾") ;;设置标题行折叠符号
+;; 高亮latex语法
+;;(org-highlight-latex-and-related '(native script entities))
+;; 以UTF-8显示
+;;(org-pretty-entities t)
+;; 是否隐藏标题栏的前置星号，这里我们通过org-modern来隐藏
+;; my_usepackage.el
+;; (org-hide-leading-stars t)
+;; 自动显示图片
+;;(org-startup-with-inline-images t)
+;; 默认以Overview的模式展示标题行
+;;(org-startup-folded 'overview)
 ;; 自动换行
 (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
 
+
+;;----------------------------------------------------------
+;; 执行代码快
 ;; Babel 语言支持
 (org-babel-do-load-languages
  'org-babel-load-languages
@@ -28,8 +46,11 @@
 ;;默认只显示一级标题
 (setq org-startup-folded t)
 
-;;图形界面 Latex preview 调整大小
-;;(setq org-format-latex-options (plist-put org-format-latex-options :scale 1.0))
+;;----------------------------------------------------------
+;; Latex preview
+;;(图形界面)调整公式大小
+(setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
+
 ; org-mode preview无法显示中文的问题
 ; 需要在公式中出现中文的地方，都使用 \mbox{} 
 ;org-latex-prewiew 函数的大概处理流程为，先查询到当前buffer当前光标下 公式开始与结尾，再通过 org-preview-latex-default-process 变量获取到 需要使用的处理流程，再通过 org-preview-latex-process-alist 查到对应 处理过程需要使用到的命令，最后把公式的插入到一个固定模板，在按照定义好 的处理流程将 LaTeX 的代码转化为png或者svg显示在buffer当中。
@@ -46,7 +67,7 @@
 
 
 ;org-preview-latex 默认不开启
-;;;; (setq org-startup-with-latex-preview nil)
+(setq org-startup-with-latex-preview nil)
 
 ;;----------------------------------------------------------
 ;;导出
@@ -72,6 +93,9 @@
 (setq imenu-list-position 'left)
 (setq imenu-list-size 0.2)
 
+
+;;----------------------------------------------------------
+;; Aganda设置
 
 
 (provide 'my_org)

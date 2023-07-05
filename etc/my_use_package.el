@@ -245,6 +245,18 @@
 ;; https://www.gnu.org/software/auctex/
 ;;(use-package auctex)
 
+;;==========================================================
+;; Org-mode
+;;----------------------------------------------------------
+;; org-modern
+(use-package org-modern
+  :hook (after-init . (lambda ()
+			(setq org-modern-hide-start 'leading)
+			(global-org-modern-mode t)))
+  :config
+  ;; 标题行型号字符
+  (setq org-modern-star ["◉" "○" "✸" "✳" "◈" "◇" "✿" "❀" "✜"])
+  )
 ;;----------------------------------------------------------
 ;; org-noter
 ;; https://github.com/weirdNox/org-noter
