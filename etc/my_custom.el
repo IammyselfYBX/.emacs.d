@@ -22,7 +22,11 @@
 ;;(set-frame-position (selected-frame) 100 0)
 ;;设置emacs 窗口打开时宽和高
 ;;(set-frame-width (selected-frame) 500)
+
 ;;(set-frame-height (selected-frame) 59)
+;; 草稿缓冲区默认文字设置
+(setq initial-scratch-message (concat ";; Happy hacking, "
+                                      (capitalize user-login-name) " - Emacs ♥ you!\n\n"))
 
 ;;修改字体大小
 ;; 已通过 cnfonts 完成修改了(见 my_use_package.el 中 cnfonts 部分)
