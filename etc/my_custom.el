@@ -28,8 +28,9 @@
 ;; 已通过 cnfonts 完成修改了(见 my_use_package.el 中 cnfonts 部分)
 ;;(set-face-attribute 'default nil :height 220)
 
-;;; 隐藏打开界面
-(setq inhibit-startup-screen t)
+(setq inhibit-startup-screen t)         ; 不加载启动画面
+;;(setq inhibit-startup-message t)        ; 不加载启动消息(等到最后不再新增新的插件开启)
+(setq inhibit-startup-buffer-menu t)    ; 不显示缓冲区列表
 
 
 ;;----------------------------------------------------------
@@ -75,11 +76,22 @@
 ;;==========================================================
 ;;----------------------------------------------------------
 ;; 系统编码
+;; 配置所有的编码为UTF-8，参考：
+;; https://thraxys.wordpress.com/2016/01/13/utf-8-in-emacs-everywhere-forever/
+(setq locale-coding-system 'utf-8)
+(setq default-buffer-file-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
 (set-default-coding-systems 'utf-8)
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
-(setq default-buffer-file-coding-system 'utf-8)
+(set-selection-coding-system 'utf-8)
+(set-language-environment 'utf-8)
+(set-clipboard-coding-system 'utf-8)
+(set-file-name-coding-system 'utf-8)
+(set-buffer-file-coding-system 'utf-8)
+(modify-coding-system-alist 'process "*" 'utf-8)
+(when (display-graphic-p)
+  (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING)))
 
 ;;----------------------------------------------------------
 ;设置垃圾回收阈值，加速启动速度
@@ -114,6 +126,42 @@
 (setq auto-save-list-file-prefix "~/.emacs.d/var/auto-save-list/.saves~")
 ;; 设置eshell 历史记录
 (setq eshell-history-file-name "~/.emacs.d/var/eshell/history")
+
+;; 设置大文件阈值为100MB，默认10MB
+(setq large-file-warning-threshold 100000000)
+;; 以16进制显示字节数
+(setq display-raw-bytes-as-hex t)
+;; 有输入时禁止 `fontification' 相关的函数钩子，能让滚动更顺滑
+(setq redisplay-skip-fontification-on-input t)
+
+;; 禁止响铃
+(setq ring-bell-function 'ignore)
+
+;; 禁止闪烁光标
+(blink-cursor-mode -1)
+
+;; 在光标处而非鼠标所在位置粘贴
+(setq mouse-yank-at-point t)
+
+;; 拷贝粘贴设置
+(setq select-enable-primary nil)        ; 选择文字时不拷贝
+(setq select-enable-clipboard t)        ; 拷贝时使用剪贴板
+
+;; TAB键设置，在Emacs里不使用TAB键，所有的TAB默认为4个空格
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
+
+;; 设置剪贴板历史长度300，默认为60
+(setq kill-ring-max 200)
+
+;; 在剪贴板里不存储重复内容
+(setq kill-do-not-save-duplicates t)
+
+;; 在命令行里支持鼠标
+(xterm-mouse-mode 1)
+
+;; 退出Emacs时进行确认
+(setq confirm-kill-emacs 'y-or-n-p)
 
 ;;----------------------------------------------------------
 ;;记录上一次关闭位置，打开自动跳转
