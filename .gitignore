@@ -20,3 +20,6 @@ recentf
 
 # 忽略网页
 url/*
+
+# 忽略 org-roam 数据库
+org-roam.db

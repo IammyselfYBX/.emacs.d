@@ -281,6 +281,46 @@
 ;; ob-ipython
 (use-package ob-ipython)
 
+;;----------------------------------------------------------
+;; 笔记
+;;----------------------------------------------------------
+;; org-roam
+;; https://www.orgroam.com/
+;; https://github.com/org-roam/org-roam
+(use-package org-roam
+  :custom
+  (org-roam-directory "~/Note/") ;; 默认笔记目录(如果没有就会出现 Warring)
+  ;;(org-roam-dailies-directory "daily/") ;; 默认日记位置(是上一个目录地址的相对路径)
+  (org-roam-db-gc-threshold most-positive-fixnum) ;; 提高性能
+  :bind (("C-c n l" . org-roam-buffer-toggle)
+         ("C-c n f" . org-roam-node-find)
+         ("C-c n g" . org-roam-graph)
+         ("C-c n i" . org-roam-node-insert)
+         ("C-c n c" . org-roam-capture)
+         ;; Dailies
+         ;;("C-c n j" . org-roam-dailies-capture-today)
+	 )
+  :config
+  (org-roam-db-autosync-mode) ;; 启动时自动同步数据库
+  ) 
+
+;; org-roam-ui
+;; https://github.com/org-roam/org-roam-ui
+(use-package org-roam-ui
+  :after org-roam
+  :config
+  (setq org-roam-ui-sync-theme t
+        org-roam-ui-follow t
+	;;org-roam-ui-open-on-start t
+        org-roam-ui-update-on-save t))
+  ;;:config
+  ;;(org-roam-ui-sync-theme t) ;; 同步 Emacs 主题
+  ;;(org-roam-ui-follow-mode t) ;; 笔记节点追踪
+  ;;(org-roam-ui-open-on-start t) ;; 打开emacs就启动
+  ;;(org-roam-ui-update-on-save t) ;; 自动同步更新
+  )
+
+
 ;;==========================================================
 ;; 补全/检查/智能
 ;;==========================================================
