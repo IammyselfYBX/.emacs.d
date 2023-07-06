@@ -23,3 +23,8 @@ url/*
 
 # 忽略 org-roam 数据库
 org-roam.db
+
+var/*
+
+.org-id-locations/*
+.org-id-locations
