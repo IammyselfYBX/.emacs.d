@@ -1,23 +1,162 @@
 ;;==========================================================
-;;org-mode
+;; Org-mode
 ;;==========================================================
-
 ;;----------------------------------------------------------
-;; 美化
-;;(org-ellipsis " ▾") ;;设置标题行折叠符号
-;; 高亮latex语法
-;;(org-highlight-latex-and-related '(native script entities))
-;; 以UTF-8显示
-;;(org-pretty-entities t)
-;; 是否隐藏标题栏的前置星号，这里我们通过org-modern来隐藏
-;; my_usepackage.el
-;; (org-hide-leading-stars t)
-;; 自动显示图片
-;;(org-startup-with-inline-images t)
-;; 默认以Overview的模式展示标题行
-;;(org-startup-folded 'overview)
+;; 整体设置
+(use-package org
+  :mode ("\\.org\\'" . org-mode)
+  :hook ((org-mode . visual-line-mode)
+		 (org-mode . my/org-prettify-symbols))
+  :commands (org-find-exact-headline-in-buffer org-set-tags)
+  :config
+  ;; 设置代码块用上下边线包裹 需要安装doom主题
+  ;; (org-block-begin-line ((t (:underline t :background unspecified))))
+  ;; (org-block-end-line ((t (:overline t :underline nil :background unspecified))))
+  ;; 美化的一些符号
+  (defun my/org-prettify-symbols () 
+	(setq prettify-symbols-alist
+		  (mapcan (lambda (x) (list x (cons (upcase (car x)) (cdr x))))
+				  '(
+					;; ("[ ]"              . 9744)         ; ☐
+					;; ("[X]"              . 9745)         ; ☑
+					;; ("[-]"              . 8863)         ; ⊟
+					("#+begin_src"      . 9998)         ; ✎
+					("#+end_src"        . 9633)         ; □
+					("#+begin_example"  . 129083)       ; 🠻
+					("#+end_example"    . 129081)       ; 🠹
+					("#+results:"       . 9776)         ; ☰
+					("#+attr_latex:"    . "🄛")
+					("#+attr_html:"     . "🄗")
+					("#+attr_org:"      . "🄞")
+					("#+name:"          . "🄝")         ; 127261
+					("#+caption:"       . "🄒")         ; 127250
+					("#+date:"          . "📅")         ; 128197
+					("#+author:"        . "💁")         ; 128100
+					("#+setupfile:"     . 128221)       ; 📝
+					("#+email:"         . 128231)       ; 📧
+					("#+startup:"       . 10034)        ; ✲
+					("#+options:"       . 9965)         ; ⛭
+					("#+title:"         . 10162)        ; ➲
+					("#+subtitle:"      . 11146)        ; ⮊
+					("#+downloaded:"    . 8650)         ; ⇊
+					("#+language:"      . 128441)       ; 🖹
+					("#+begin_quote"    . 187)          ; »
+					("#+end_quote"      . 171)          ; «
+                    ("#+begin_results"  . 8943)         ; ⋯
+                    ("#+end_results"    . 8943)         ; ⋯
+					)))
+   (setq prettify-symbols-unprettify-at-point t)
+   (prettify-symbols-mode 1))
+  :custom
+  (org-startup-with-inline-images t) ;; 自动显示图片
+  )
+
+;;==========================================================
+;; 美化 与 显示
+;;==========================================================
+;;----------------------------------------------------------
+;; org-modern
+(use-package org-modern
+  :hook (after-init . (lambda ()
+			(setq org-modern-hide-start 'leading)
+			(global-org-modern-mode t)))
+  :config
+  
+  (setq org-modern-star ["◉" "○" "✸" "✳" "◈" "◇" "✿" "❀" "✜"] ;; 标题行型号字符
+        org-ellipsis "⤵" ;; 设置标题行折叠符号 ▼ ↴ ⬎ ⤷  ⋱
+        org-pretty-entities t ;; 以UTF-8显示
+        org-modern-block-fringe t ;; 代码块左边加上一条竖边线
+        org-modern-block-name nil ;; 代码块类型美化，这里使用了 `prettify-symbols-mode'
+        org-modern-keyword nil    ;; #+<关键字> 的美化，这里使用了 `prettify-symbols-mode'
+        )
+  ;; 复选框美化
+  (setq org-modern-checkbox
+        '((?X . #("▢✓" 0 2 (composition ((2)))))
+          (?- . #("▢–" 0 2 (composition ((2)))))
+          (?\s . #("▢" 0 1 (composition ((1)))))))
+  ;; 列表符号美化
+  (setq org-modern-list
+        '((?- . "•")
+          (?+ . "◦")
+          (?* . "▹")))
+  )
 ;; 自动换行
 (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
+
+;;----------------------------------------------------------
+;; org-appear
+;; https://github.com/awth13/org-appear
+;; 当我们的光标移动到Org mode里的强调、链接上时，会自动展开，这样方便进行编辑。
+(use-package org-appear
+  :hook (org-mode . org-appear-mode)
+  :config
+  (setq org-appear-autolinks t)      ;; 将链接自动转换为可见
+  (setq org-appear-autosubmarkers t) ;; 将下标和上标标记自动转换为可见
+  (setq org-appear-autoentities t)   ;; 将特殊字符自动转换为可见
+  (setq org-appear-autokeywords t)   ;; 将关键字自动转换为可见
+  (setq org-appear-inside-latex t)   ;; 将 LaTeX 元素自动转换
+  )
+
+
+
+;;默认只显示一级标题
+(setq org-startup-folded t)
+
+
+
+;;==========================================================
+;; 笔记
+;;==========================================================
+;;----------------------------------------------------------
+;; org-noter
+;; https://github.com/weirdNox/org-noter
+;; 结合pdf-tools 的笔记系统
+(use-package org-noter
+  :after org
+  :config
+  (setq org-noter-default-notes-file-names '("notes.org")   ;;默认注释文件名
+	org-noter-notes-search-path '("~/Documents/notes") ;;Org note 还需要一个（或多个）搜索路径来搜索文档注释。
+	org-noter-separate-notes-from-heading t)
+  )
+
+;;----------------------------------------------------------
+;; org-roam
+;; https://www.orgroam.com/
+;; https://github.com/org-roam/org-roam
+(use-package org-roam
+  :custom
+  (org-roam-directory "~/Note/") ;; 默认笔记目录(如果没有就会出现 Warring)
+  ;;(org-roam-dailies-directory "daily/") ;; 默认日记位置(是上一个目录地址的相对路径)
+  (org-roam-db-gc-threshold most-positive-fixnum) ;; 提高性能
+  :bind (("C-c n l" . org-roam-buffer-toggle)   ;; 显示
+         ("C-c n f" . org-roam-node-find)
+         ("C-c n g" . org-roam-graph)
+         ("C-c n i" . org-roam-node-insert)
+         ("C-c n c" . org-roam-capture)
+	 ("C-c n u" . org-roam-ui-mode) ;;浏览器中可视化
+         ;; Dailies
+         ;;("C-c n j" . org-roam-dailies-capture-today)
+	 )
+  :config
+  (org-roam-db-autosync-mode) ;; 启动时自动同步数据库
+  ) 
+
+;;----------------------------------------------------------
+;; org-roam-ui
+;; https://github.com/org-roam/org-roam-ui
+(use-package org-roam-ui
+  :after org-roam
+  :config
+  (setq org-roam-ui-sync-theme t
+        org-roam-ui-follow t
+	;;org-roam-ui-open-on-start t
+        org-roam-ui-update-on-save t)
+  ;;:config
+  ;;(org-roam-ui-sync-theme t) ;; 同步 Emacs 主题
+  ;;(org-roam-ui-follow-mode t) ;; 笔记节点追踪
+  ;;(org-roam-ui-open-on-start t) ;; 打开emacs就启动
+  ;;(org-roam-ui-update-on-save t) ;; 自动同步更新
+  )
 
 
 ;;----------------------------------------------------------
@@ -34,20 +173,36 @@
    (emacs-lisp . t)))
 ;; (emacs-lisp . nil) 不需要那个就这样写
 
+;;----------------------------------------------------------
+;; ob-ipython
+(use-package ob-ipython)
+
 ;; 不再询问是否允许执行代码块
 (setq org-confirm-babel-evaluate nil)
 
-;; display/update images in the buffer after I evaluate
+;; 显示和更新代码生成的图片
 (add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
 
 ;; orgmode 调整图片尺寸
-(setq org-image-actual-width nil)
+;;(setq org-image-actual-width nil) ;; 使用图像的实际宽度
 
-;;默认只显示一级标题
-(setq org-startup-folded t)
+;;==========================================================
+;; Latex
+;;==========================================================
+;;----------------------------------------------------------
+;; org-fragtog
+;; https://github.com/io12/org-fragtog
+;; 光标离开公式输入的region之后自动调用 ```org-latex-preview``` 生成预览
+(use-package org-fragtog
+  :after org
+  :hook
+  (org-mode . org-fragtog-mode))
 
 ;;----------------------------------------------------------
 ;; Latex preview
+;org-preview-latex 默认不开启
+(setq org-startup-with-latex-preview nil)
+
 ;;(图形界面)调整公式大小
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
 ;;(setq org-latex-packages-alist
@@ -83,17 +238,16 @@
 ;;(setq org-preview-latex-default-process 'imagemagick)
 
 
-;org-preview-latex 默认不开启
-(setq org-startup-with-latex-preview nil)
-
-;;----------------------------------------------------------
+;;==========================================================
 ;;导出
+;;==========================================================
+;;----------------------------------------------------------
 ;配置org-export使用xelatex来做pdf的生成
 (setq org-latex-compiler "xelatex")
 (setq org-latex-pdf-process '("xelatex -interaction=nonstopmode %f")) ;; 执行xelatex 命令 -interaction=nonstopmode 告诉 TeX 引擎在不与用户交互的情况下运行，并尽可能“跳过”错误。
 (add-to-list 'org-latex-default-packages-alist '("" "ctex" t ("xelatex")))
 
-;;----------------------------------------------------------
+;;==========================================================
 ;; 在缓冲区显示大纲
 ;; Imenu
 ;; 生成用于访问文档中位置的菜单，通常在当前缓冲区(有可以通过在 普通菜单 或 迷你缓冲区minibuffer )中显示
@@ -111,8 +265,9 @@
 (setq imenu-list-size 0.2)
 
 
-;;----------------------------------------------------------
+;;==========================================================
 ;; Aganda设置
+;;==========================================================
 
 
 (provide 'my_org)

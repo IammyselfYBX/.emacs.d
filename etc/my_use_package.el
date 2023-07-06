@@ -325,12 +325,31 @@
         org-modern-block-name nil ;; 代码块类型美化，这里使用了 `prettify-symbols-mode'
         org-modern-keyword nil    ;; #+<关键字> 的美化，这里使用了 `prettify-symbols-mode'
         )
+  ;; 复选框美化
+  (setq org-modern-checkbox
+        '((?X . #("▢✓" 0 2 (composition ((2)))))
+          (?- . #("▢–" 0 2 (composition ((2)))))
+          (?\s . #("▢" 0 1 (composition ((1)))))))
+  ;; 列表符号美化
+  (setq org-modern-list
+        '((?- . "•")
+          (?+ . "◦")
+          (?* . "▹")))
   )
 
 ;;----------------------------------------------------------
 ;; org-appear
 ;; https://github.com/awth13/org-appear
-;; 
+;; 当我们的光标移动到Org mode里的强调、链接上时，会自动展开，这样方便进行编辑。
+(use-package org-appear
+  :hook (org-mode . org-appear-mode)
+  :config
+  (setq org-appear-autolinks t)      ;; 将链接自动转换为可见
+  (setq org-appear-autosubmarkers t) ;; 将下标和上标标记自动转换为可见
+  (setq org-appear-autoentities t)   ;; 将特殊字符自动转换为可见
+  (setq org-appear-autokeywords t)   ;; 将关键字自动转换为可见
+  (setq org-appear-inside-latex t)   ;; 将 LaTeX 元素自动转换
+  )
 
 ;;----------------------------------------------------------
 ;; org-noter
