@@ -357,6 +357,21 @@
   (add-to-list 'which-key-replacement-alist '(("SPC" . nil) . ("␣" . nil)))
   )
 
+;; helpful
+;; https://github.com/Wilfred/helpful
+;; 让 C-h 的说明文档更可读
+(use-package helpful
+  :ensure t
+  :commands (helpful-callable helpful-variable helpful-command helpful-key helpful-mode)
+  :bind (([remap describe-command] . helpful-command)
+         ("C-h f" . helpful-callable)
+         ("C-h v" . helpful-variable)
+         ("C-h s" . helpful-symbol)
+         ("C-h S" . describe-syntax)
+         ("C-h m" . describe-mode)
+         ("C-h F" . describe-face)
+         ([remap describe-key] . helpful-key))
+  )
 
 ;;----------------------------------------------------------
 ;; flycheck 语法检查
