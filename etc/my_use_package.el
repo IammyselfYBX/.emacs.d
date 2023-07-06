@@ -52,6 +52,22 @@
 (use-package restart-emacs)
 ;; 可以按 C-x C-e 直接下载包
 
+;; Emacs 自带功能但是可以使用 use-package 进行配置
+;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Auto-Revert.html
+;; 自动重载进行设置，让我们的Emacs在文件发生改变的时候自动重载文件。
+;; 启用 autorevert 后，Emacs 会定期检查磁盘上的文件，看看它是否被修改过。如果文件已被修改，Emacs 将自动使用最新更改重新加载缓冲区。
+(use-package autorevert
+  :ensure nil
+  :hook (after-init . global-auto-revert-mode)
+  :bind ("s-u" . revert-buffer)            ;; 设置快捷键 可以恢复缓存区
+  :custom
+  (auto-revert-interval 10)                ;;  Emacs 每 10 秒检查一次文件
+  (auto-revert-avoid-polling t)            ;; 避免轮询文件更改
+  (auto-revert-verbose nil)                ;; 不在还原缓冲区时打印消息
+  (auto-revert-remote-files t)             ;; 还原远程文件
+  (auto-revert-check-vc-info t)            ;; 检查版本控制信息
+  (global-auto-revert-non-file-buffers t)) ;; 还原非文件缓冲区
+
 ;;----------------------------------------------------------
 ;; 安装 benchmark-init
 ;; 查看 emacs 启动时间
@@ -292,11 +308,12 @@
   (org-roam-directory "~/Note/") ;; 默认笔记目录(如果没有就会出现 Warring)
   ;;(org-roam-dailies-directory "daily/") ;; 默认日记位置(是上一个目录地址的相对路径)
   (org-roam-db-gc-threshold most-positive-fixnum) ;; 提高性能
-  :bind (("C-c n l" . org-roam-buffer-toggle)
+  :bind (("C-c n l" . org-roam-buffer-toggle)   ;; 显示
          ("C-c n f" . org-roam-node-find)
          ("C-c n g" . org-roam-graph)
          ("C-c n i" . org-roam-node-insert)
          ("C-c n c" . org-roam-capture)
+	 ("C-c n u" . org-roam-ui-mode) ;;浏览器中可视化
          ;; Dailies
          ;;("C-c n j" . org-roam-dailies-capture-today)
 	 )
@@ -312,7 +329,7 @@
   (setq org-roam-ui-sync-theme t
         org-roam-ui-follow t
 	;;org-roam-ui-open-on-start t
-        org-roam-ui-update-on-save t))
+        org-roam-ui-update-on-save t)
   ;;:config
   ;;(org-roam-ui-sync-theme t) ;; 同步 Emacs 主题
   ;;(org-roam-ui-follow-mode t) ;; 笔记节点追踪
