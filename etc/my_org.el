@@ -47,7 +47,7 @@
 					)))
    (setq prettify-symbols-unprettify-at-point t)
    (prettify-symbols-mode 1))
-  (setq org-src-window-setup 'current-window) ;; 编写代码块时分割当前窗口
+  (setq org-src-window-setup 'curren0t-window) ;; 编写代码块时分割当前窗口
   :custom
   (org-startup-with-inline-images t) ;; 自动显示图片
   ;;:bind
@@ -161,6 +161,9 @@
   ;;(org-roam-ui-update-on-save t) ;; 自动同步更新
   )
 
+;; org-download
+;; https://github.com/abo-abo/org-download
+;; 将图像拖放到 Emacs 组织模式
 
 ;;----------------------------------------------------------
 ;; 执行代码快
@@ -199,7 +202,12 @@
 (use-package org-fragtog
   :after org
   :hook
-  (org-mode . org-fragtog-mode))
+  (org-mode . org-fragtog-mode)
+  :custom
+  (org-fragtog-preview-delay 1.0))
+
+;; https://github.com/dandavison/xenops
+;; 支持org的异步preview Latex
 
 ;;----------------------------------------------------------
 ;; Latex preview
