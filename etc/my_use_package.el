@@ -32,6 +32,21 @@
 (require 'interaction-log) ;; 这个是交互显示 emacs log 的
 ;; 想打开 M-x interaction-log-mode 然后 C-x b 在缓冲区就能查看
 
+;; https://github.com/quelpa/quelpa
+;; quelpa 是一个从本地或远程源代码本地编译和安装 Emacs Lisp 包的工具。
+(use-package quelpa
+  :ensure t
+  :commands quelpa
+  :config
+  :custom
+  (quelpa-git-clone-depth 1)
+  (quelpa-update-melpa-p nil)
+  (quelpa-self-upgrade-p nil)
+  (quelpa-checkout-melpa-p nil))
+
+;; `quelpa' 与 `use-package' 集成
+(use-package quelpa-use-package
+  :ensure t)
 
 ;;==========================================================
 ;; 总体设置
@@ -254,6 +269,11 @@
   (setq pdf-annot-activate-created-annotations t)   ;; automatically annotate highlights 自动注释亮点
   ;;(define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward) ;; use normal isearch
   (setq native-comp-deferred-compilation-deny-list '(".*pdf.*")) ;; 禁用pdf-tools本地化编译
+  (linum-mode -1)
+  (setq pdf-view-use-scaling t)
+  ;;:bind (:map pdf-view-mode-map
+  ;;            ("<left>" . pdf-view-previous-page-command)
+  ;;            ("<right>" . pdf-view-next-page-command))
   )
 
 ;;----------------------------------------------------------
