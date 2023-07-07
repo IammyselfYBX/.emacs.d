@@ -47,8 +47,10 @@
 					)))
    (setq prettify-symbols-unprettify-at-point t)
    (prettify-symbols-mode 1))
+  (setq org-src-window-setup 'current-window) ;; 编写代码块时分割当前窗口
   :custom
   (org-startup-with-inline-images t) ;; 自动显示图片
+  ;;:bind
   )
 
 ;;==========================================================
@@ -116,7 +118,8 @@
   :config
   (setq org-noter-default-notes-file-names '("notes.org")   ;;默认注释文件名
 	org-noter-notes-search-path '("~/Documents/notes") ;;Org note 还需要一个（或多个）搜索路径来搜索文档注释。
-	org-noter-separate-notes-from-heading t)
+	org-noter-separate-notes-from-heading t
+    org-noter-always-create-frame nil)
   )
 
 ;;----------------------------------------------------------
