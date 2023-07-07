@@ -34,14 +34,13 @@ pdftools 是一款用来看pdf的插件，需要提前安装
 **** 执行代码块
 #+begin_src bash
   # 需要 ipython
-  pip install ipython
+  pip install ipython jupyter
 #+end_src
-
+这里如果没有安装 ~jupyter~ 的话，可能在使用 ~Org-roam~ 时报错 ~JOSN readtable error 47~
 
 *** lsp-mode
 **** 安装可能失败
 第一次安装很可能下载失败，所以可能需要手动安装
-
 [[https://melpa.org/#/lsp-mode][(melpa) lsp-mode地址]]
 
 #+BEGIN_SRC bash
