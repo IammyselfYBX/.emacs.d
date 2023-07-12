@@ -281,6 +281,11 @@
 ;; magit
 ;; https://github.com/magit/magit
 ;; https://magit.vc/
+;; 简单使用
+;;   S:  存储修改的文件 git add <file>
+;;   cc: 编写Commit 内容
+;;       写完以后使用 C-c C-c 提交 commit
+;;   Pu: 推送到远程服务器
 (use-package magit
   :hook (git-commit-mode . flycheck-mode)
   :bind (("C-x g"   . magit-status)        ;; 
