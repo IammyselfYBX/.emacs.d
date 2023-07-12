@@ -205,7 +205,8 @@
 ;;(global-set-key (kbd "<ESC>") (kbd "C-g"))
 ;; 用 C-z 变成撤销
 (global-set-key (kbd "C-z") 'undo)
-
+(global-set-key (kbd "C-s") 'save-buffer) ;; C-s 保存文档
+(global-set-key (kbd "C-w") 'kill-buffer) ;; 关闭当前buffer 相当于C-x k
 
 ;;==========================================================
 ;; 编程

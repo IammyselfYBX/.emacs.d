@@ -26,6 +26,7 @@ url/*
 org-roam.db
 
 var/*
+tutorial/*
 
 .org-id-locations/*
 .org-id-locations

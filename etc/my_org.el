@@ -63,8 +63,8 @@
 			(setq org-modern-hide-start 'leading)
 			(global-org-modern-mode t)))
   :config
-  
-  (setq org-modern-star ["◉" "○" "✸" "✳" "◈" "◇" "✿" "❀" "✜"] ;; 标题行型号字符
+  (setq ;;org-modern-star ["◉" "○" "✸" "✳" "◈" "◇" "✿" "❀" "✜"] ;; 标题行型号字符
+        org-modern-star ["☯️" "🌟" "⚛️" "⚝" "◈" "◇" "✿" "❀" "✜"] ;; 标题行型号字符
         org-ellipsis "⤵" ;; 设置标题行折叠符号 ▼ ↴ ⬎ ⤷  ⋱
         org-pretty-entities t ;; 以UTF-8显示
         org-modern-block-fringe t ;; 代码块左边加上一条竖边线
@@ -279,6 +279,52 @@
 ;;==========================================================
 ;; Aganda设置
 ;;==========================================================
+;;----------------------------------------------------------
+;; org-capture
+;; org-capture 的功能就是脑海中突然涌现了一个灵感，然后记录下来
+(use-package org-capture
+  :ensure nil
+  :bind ("\e\e c" . (lambda () (interactive) (org-capture))) ;; ~ESC-ESC c~ 是唤起 org-capture 快捷键 
+  :hook ((org-capture-mode . (lambda ()
+                               (setq-local org-complete-tags-always-offer-all-agenda-tags t)))
+         (org-capture-mode . delete-other-windows))
+  :custom
+  (org-capture-use-agenda-date nil)
+  ;; 定义 capture 模板
+  ;; https://orgmode.org/manual/Template-elements.html
+  ;; 主要是 [t] Tasks
+  ;;        [n] Notes
+  ;;        [b] Bookmarks
+  ;;        [d] Diary
+  ;;        Diary 的二级目录
+  ;;           [t] Today's TODO list
+  ;;           [o] Other stuff
+  (org-capture-templates `(("t" "Tasks" entry (file+headline "tasks.org" "Reminders")
+                            ;; t 表示这个快速记录的快捷键设置
+                            ;; Tasks 显示在快捷键右边的提示文本
+                            ;; 设置这个快速记录保存到哪个文件的什么位置 这里是 tasks.org文件下的 Reminders 标题
+                            "* TODO %i%?"         ;; 这个是初始模板                            
+                            :empty-lines-after 1  ;; 这个是在这个快速记录后插入一个空行
+                            :prepend t)           ;; 是插入到最前面的位置，默认是插入到最后一个位置   
+                           ("n" "Notes" entry (file+headline "capture.org" "Notes")
+                            "* %? %^g\n%i\n"
+                            :empty-lines-after 1)
+                           ;; For EWW
+                           ("b" "Bookmarks" entry (file+headline "capture.org" "Bookmarks")
+                            "* %:description\n\n%a%?"
+                            :empty-lines 1
+                            :immediate-finish t)
+                           ("d" "Diary")
+                           ("dt" "Today's TODO list" entry (file+olp+datetree "diary.org")
+                            "* Today's TODO list [/]\n%T\n\n** TODO %?"
+                            :empty-lines 1
+                            :jump-to-captured t)
+                           ("do" "Other stuff" entry (file+olp+datetree "diary.org")
+                            "* %?\n%T\n\n%i"
+                            :empty-lines 1
+                            :jump-to-captured t)
+                           ))
+  )
 
 
 (provide 'my_org)

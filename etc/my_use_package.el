@@ -276,6 +276,20 @@
   ;;            ("<right>" . pdf-view-next-page-command))
   )
 
+
+;;----------------------------------------------------------
+;; magit
+;; https://github.com/magit/magit
+;; https://magit.vc/
+(use-package magit
+  :hook (git-commit-mode . flycheck-mode)
+  :bind (("C-x g"   . magit-status)        ;; 
+         ("C-x M-g" . magit-dispatch)
+         ("C-c M-g" . magit-file-dispatch))
+  :custom
+  (magit-diff-refine-hunk t)
+  (magit-ediff-dwim-show-on-hunks t))
+
 ;;----------------------------------------------------------
 ;; AUCTex
 ;; https://www.gnu.org/software/auctex/
