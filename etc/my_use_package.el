@@ -282,15 +282,16 @@
 ;; https://github.com/magit/magit
 ;; https://magit.vc/
 ;; 简单使用
-;;   S:  存储修改的文件 git add <file>
+;;   S:  存储修改的文件 git add .
+;;   s:  add 具体的文件
 ;;   cc: 编写Commit 内容
 ;;       写完以后使用 C-c C-c 提交 commit
 ;;   Pu: 推送到远程服务器
 (use-package magit
   :hook (git-commit-mode . flycheck-mode)
-  :bind (("C-x g"   . magit-status)        ;; 
-         ("C-x M-g" . magit-dispatch)
-         ("C-c M-g" . magit-file-dispatch))
+  :bind (("C-x g"   . magit-status)         ;; 
+         ("C-x M-g" . magit-dispatch)       ;; 切换不同的分支
+         ("C-c M-g" . magit-file-dispatch)) ;; 暂存单个文件、查看文件的暂存状态
   :custom
   (magit-diff-refine-hunk t)
   (magit-ediff-dwim-show-on-hunks t))

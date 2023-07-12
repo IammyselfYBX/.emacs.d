@@ -29,6 +29,8 @@ sudo ./install-tl
 pdftools 是一款用来看pdf的插件，需要提前安装
 #+begin_src bash
   $> sudo pacman -S --needed base-devel libpng zlib poppler-glib
+  $> sudo pacman -S poppler-data
+  # poppler-data 是可以让 pdf-tools 显示中文
 #+end_src
 
 **** 执行代码块

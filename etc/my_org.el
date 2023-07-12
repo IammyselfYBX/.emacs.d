@@ -253,10 +253,80 @@
 ;;导出
 ;;==========================================================
 ;;----------------------------------------------------------
+;; 导出成 PDF —— ox-latex
+;; ox-latex 是Org mode自带的功能，可以将Org文件导出为latex文件和PDF文件。
+;;
+(use-package ox-latex
+  :ensure nil
+  :defer t
+  :config
+  (add-to-list 'org-latex-default-packages-alist '("" "ctex" t ("xelatex"))) ;; 支持汉语
+  (add-to-list 'org-latex-classes
+               '("cn-article"
+                 "\\documentclass[UTF8,a4paper]{article}"
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+
+  (add-to-list 'org-latex-classes
+               '("cn-report"
+                 "\\documentclass[11pt,a4paper]{report}"
+                 ("\\chapter{%s}" . "\\chapter*{%s}")
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")))
+  (setq org-latex-default-class "cn-article")
+  (setq org-latex-image-default-height "0.9\\textheight"
+        org-latex-image-default-width "\\linewidth")
+  (setq org-latex-compiler "xelatex") ;;使用xelatex来做pdf的生成
+  (setq org-latex-pdf-process
+	    '("xelatex -interaction nonstopmode -output-directory %o %f"
+	      "bibtex %b"
+	      "xelatex -interaction nonstopmode -output-directory %o %f"
+	      "xelatex -interaction nonstopmode -output-directory %o %f"
+	      "rm -fr %b.out %b.log %b.tex %b.brf %b.bbl auto"
+	      ))
+  ;; 使用 Listings 宏包格式化源代码(只是把代码框用 listing 环境框起来，还需要额外的设置)
+  (setq org-latex-listings t)
+  ;; mapping jupyter-python to Python
+  (add-to-list 'org-latex-listings-langs '(jupyter-python "Python"))
+  ;; Options for \lset command（reference to listing Manual)
+  (setq org-latex-listings-options
+        '(
+          ("basicstyle" "\\small\\ttfamily")       ; 源代码字体样式
+          ("keywordstyle" "\\color{eminence}\\small")                 ; 关键词字体样式
+          ;; ("identifierstyle" "\\color{doc}\\small")
+          ("commentstyle" "\\color{commentgreen}\\small\\itshape")    ; 批注样式
+          ("stringstyle" "\\color{red}\\small")                       ; 字符串样式
+          ("showstringspaces" "false")                                ; 字符串空格显示
+          ("numbers" "left")                                          ; 行号显示
+          ("numberstyle" "\\color{preprocess}")                       ; 行号样式
+          ("stepnumber" "1")                                          ; 行号递增
+          ("xleftmargin" "2em")                                       ;
+          ;; ("backgroundcolor" "\\color{background}")                   ; 代码框背景色
+          ("tabsize" "4")                                             ; TAB 等效空格数
+          ("captionpos" "t")                                          ; 标题位置 top or buttom(t|b)
+          ("breaklines" "true")                                       ; 自动断行
+          ("breakatwhitespace" "true")                                ; 只在空格分行
+          ("showspaces" "false")                                      ; 显示空格
+          ("columns" "flexible")                                      ; 列样式
+          ("frame" "tb")                                              ; 代码框：single, or tb 上下线
+          ("frameleftmargin" "1.5em")                                 ; frame 向右偏移
+          ;; ("frameround" "tttt")                                       ; 代码框： 圆角
+          ;; ("framesep" "0pt")
+          ;; ("framerule" "1pt")                                         ; 框的线宽
+          ;; ("rulecolor" "\\color{background}")                         ; 框颜色
+          ;; ("fillcolor" "\\color{white}")
+          ;; ("rulesepcolor" "\\color{comdil}")
+          ("framexleftmargin" "5mm")                                  ; let line numer inside frame
+          ))
+  )
 ;配置org-export使用xelatex来做pdf的生成
-(setq org-latex-compiler "xelatex")
-(setq org-latex-pdf-process '("xelatex -interaction=nonstopmode %f")) ;; 执行xelatex 命令 -interaction=nonstopmode 告诉 TeX 引擎在不与用户交互的情况下运行，并尽可能“跳过”错误。
-(add-to-list 'org-latex-default-packages-alist '("" "ctex" t ("xelatex")))
+;;(setq org-latex-compiler "xelatex")
+;;(setq org-latex-pdf-process '("xelatex -interaction=nonstopmode %f")) ;; 执行xelatex 命令 -interaction=nonstopmode 告诉 TeX 引擎在不与用户交互的情况下运行，并尽可能“跳过”错误。
+;;(add-to-list 'org-latex-default-packages-alist '("" "ctex" t ("xelatex")))
 
 ;;==========================================================
 ;; 在缓冲区显示大纲
