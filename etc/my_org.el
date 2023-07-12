@@ -328,6 +328,18 @@
 ;;(setq org-latex-pdf-process '("xelatex -interaction=nonstopmode %f")) ;; 执行xelatex 命令 -interaction=nonstopmode 告诉 TeX 引擎在不与用户交互的情况下运行，并尽可能“跳过”错误。
 ;;(add-to-list 'org-latex-default-packages-alist '("" "ctex" t ("xelatex")))
 
+;;----------------------------------------------------------
+;; 导出成 Microsoft Office文件
+;; 安装 ox-pandoc 插件
+;; https://github.com/kawabata/ox-pandoc
+(use-package ox-pandoc
+  :custom
+  ;; special extensions for markdown_github output
+  (org-pandoc-format-extensions '(markdown_github+pipe_tables+raw_html))
+  (org-pandoc-command "/usr/bin/pandoc")
+  )
+
+
 ;;==========================================================
 ;; 在缓冲区显示大纲
 ;; Imenu

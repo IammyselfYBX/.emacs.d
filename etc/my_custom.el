@@ -216,6 +216,9 @@
 (setq python-indent-guess-indent-offset t)           ;; emacs推测python的缩进
 (setq python-indent-guess-indent-offset-verbose nil) ;; emacs 不显示上述提示
 
+;; 复制粘贴
+
+
 
 ;;==========================================================
 ;; 文件结束

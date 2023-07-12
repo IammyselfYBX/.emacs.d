@@ -39,6 +39,16 @@ pdftools 是一款用来看pdf的插件，需要提前安装
   pip install ipython jupyter
 #+end_src
 这里如果没有安装 ~jupyter~ 的话，可能在使用 ~Org-roam~ 时报错 ~JOSN readtable error 47~
+**** 导出
+#+begin_src bash
+  $> sudo pacman -S pandoc
+  # 需要提前安装 pandoc 才能使用 ox-pandoc
+#+end_src
+**** org-download
+#+begin_src bash
+  $> sudo pacman -S xclip
+#+end_src
+
 
 *** lsp-mode
 **** 安装可能失败
