@@ -339,8 +339,9 @@
 	;;company-lsp-enable-snippet t              
         company-tooltip-offset-display 'scrollbar ;; 如果候选词比较多，以滚动条的形式显示 | 另一个选项是 (setq company-tooltip-offset-display 'lines) 就是全部显示
         company-begin-commands '(self-insert-command org-self-insert-command ))	;;设置在org-mode 模式下自动补全
-  (push '(company-semantic :with company-yasnippet) company-backends)  ;; 将 company-semantic 和 company-yasnippet 后端添加到 company-backends 列表的末尾
-  (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends))
+  ;;(push '(company-semantic :with company-yasnippet) company-backends)  ;; 将 company-semantic 和 company-yasnippet 后端添加到 company-backends 列表的末尾
+  ;; 上一行有时不管用，就用下面的一行，让company 实现补全 yasnippet 等其他内容
+  (add-to-list 'company-backends '(company-yasnippet company-lsp company-capf company-anaconda))
   :hook ((after-init . global-company-mode))      ;; 打开emacs就启动
   ;;:custom
   ;;(lsp-headerline-breadcrumb-enable t)
@@ -375,7 +376,6 @@
   ("C-c y s" . yas-insert-snippet)     ;; 插入 snippet 片段
   ("C-c y v" . yas-visit-snippet-file) ;; 查看 snippet 内容
   )
-;;
 
 
 ;;----------------------------------------------------------
