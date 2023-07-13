@@ -37,6 +37,8 @@ pdftools 是一款用来看pdf的插件，需要提前安装
 #+begin_src bash
   # 需要 ipython
   pip install ipython jupyter
+  # 如果是 Arch
+  pacman -S jupyter-notebook ipython
 #+end_src
 这里如果没有安装 ~jupyter~ 的话，可能在使用 ~Org-roam~ 时报错 ~JOSN readtable error 47~
 **** 导出
