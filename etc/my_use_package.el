@@ -340,7 +340,8 @@
         company-tooltip-offset-display 'scrollbar ;; 如果候选词比较多，以滚动条的形式显示 | 另一个选项是 (setq company-tooltip-offset-display 'lines) 就是全部显示
         company-begin-commands '(self-insert-command org-self-insert-command ))	;;设置在org-mode 模式下自动补全
   (push '(company-semantic :with company-yasnippet) company-backends)  ;; 将 company-semantic 和 company-yasnippet 后端添加到 company-backends 列表的末尾
-  :hook ((after-init . global-company-mode))      ;; 开机就启动
+  (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends))
+  :hook ((after-init . global-company-mode))      ;; 打开emacs就启动
   ;;:custom
   ;;(lsp-headerline-breadcrumb-enable t)
   ;;(lsp-headerline-breadcrumb-enable-symbol-numbers t)
@@ -376,6 +377,22 @@
   )
 ;;
 
+
+;;----------------------------------------------------------
+;; python 虚拟环境
+;; https://github.com/pythonic-emacs/anaconda-mode
+(use-package anaconda-mode
+  :ensure t
+  :config
+  (add-hook 'python-mode-hook 'anaconda-mode)
+  (add-hook 'python-mode-hook 'anaconda-eldoc-mode))
+
+(use-package company-anaconda
+  :ensure t
+  :after
+  company
+  :config
+  (add-to-list 'company-backends 'company-anaconda))
 
 
 ;;----------------------------------------------------------
