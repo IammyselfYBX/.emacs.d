@@ -265,6 +265,19 @@
 
 
 ;;==========================================================
+;; 邮件
+;;==========================================================
+;;----------------------------------------------------------
+;;在Emacs里处理邮件有很多种方法，比较知名的有 Gnus、MU4E、 notmuch 等，而后两者都需要本地 maildir 类软件的支持，先将邮件都下载到本地。
+;;https://www.gnu.org/software/emacs/manual/html_node/gnus/
+;;https://github.com/emacsmirror/mu4e
+;;https://notmuchmail.org/
+;;http://www.offlineimap.org/
+;;https://isync.sourceforge.io/mbsync.html
+;;发送邮件可以使用Emacs自带的 smtpmail 包，或者 msmtp ，这里我倾向于使用 msmtp 。
+;;https://marlam.de/msmtp/
+
+;;==========================================================
 ;; 文件结束
 (provide 'my_custom)
 ;;(provide '文件名) 类似C语言的函数名，这样其他文件才可以调用(require '文件名)
