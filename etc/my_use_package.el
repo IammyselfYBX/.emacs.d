@@ -19,6 +19,17 @@
 ;;;    :autoload       ; 自动加载非交互功能
 ;;; )
 ;;; :commands 、 :bind 、 :bind* 、 :bind-keymap 、 :bind-keymap* 、 :mode 和 :hook 都暗含 :defer(延迟加载)
+;; 介绍一下 add-hook与 :hook之间语法转换
+  ;; (add-hook 'prog-mode-hook 'my-function)
+  ;; (use-package my-package
+  ;;      :hook (prog-mode . my-function))
+  ;;
+  ;;(add-hook 'LaTeX-mode-hook 'auto-fill-mode)
+  ;;(add-hook 'LaTeX-mode-hook 'flycheck-mode)
+  ;;变成
+  ;;:hook
+  ;;(LaTeX-mode . auto-fill-mode)
+  ;;(LaTeX-mode . flycheck-mode)
 
 ;;==========================================================
 ;; 导入其他库函数
@@ -299,7 +310,51 @@
 ;;----------------------------------------------------------
 ;; AUCTex
 ;; https://www.gnu.org/software/auctex/
-;;(use-package auctex)
+;| 快捷键  | |                   功能                          |                   |
+;|---------+-----------|-------------------------------------------------|
+;| C-c C-c | |TeX-command-master ;; 编译，当前环境下是 XeLaTeX ||
+;| C-c C-e | |LaTeX-environment ;; 插入环境，默认 section      ||
+;| C-c C-f | |TeX-font ;; 字体设置快捷键前缀，                 ||
+;| C-c C-j | |LaTeX-insert-item ;; 插入 item，                 ||
+;| C-c C-k | |TeX-kill-job ;; 取消编译                         ||
+;| C-c C-v | |TeX-view ;; 打开 pdf viewer                      ||
+;| C-c ;   | |TeX-comment-or-uncomment-region ;; 注释          ||
+
+(use-package tex
+  :ensure auctex
+  :config
+  (setq TeX-auto-save t)        ;; 在修改 LaTeX 文件时自动保存它们
+  (setq TeX-parse-self t)       ;; 在打开当前的 LaTeX 文件时解析该文件。这意味着 Emacs 将突出显示 LaTeX 代码的语法并提供 LaTeX 命令的补全建议。
+  (setq-default TeX-master nil)  ;; 这一行告诉 Emacs 当前的 LaTeX 文件不是主文件。
+  ;; 主文件是包含文档主要内容的 LaTeX 文件。其他 LaTeX 文件（例如图形和表格）包含在主文件中。
+  ;; 通过将 TeX-master 设置为 nil ，Emacs 将不会尝试在当前文件中包含其他 LaTeX 文件。
+  (turn-off-auto-fill)            ;; LaTeX 模式下，不打开自动折行
+  ;; 编译时，不在当前窗口显示编译信息
+  (setq TeX-show-compilation nil)
+  ;;(setq TeX-clean-confirm nil)
+  ;;(setq TeX-save-query nil)  
+
+  ;; 重新定义 pdf viewer
+  ;;  新版的AUCTex将 "Zathura" 在 TeX-view-program-list-builtin 中预定义（因此您无需将其添加到 TeX-view-program-list ）
+  ;;(setq TeX-view-program-list '(("zathura" "zathura %o")))
+  (setq TeX-view-program-selection '((output-pdf "Zathura"))) 
+
+  ;; 设置编译引擎为 XeTeX
+  (setq TeX-global-PDF-mode t
+        Tex-engine 'xetex)
+  ;; 使用 XeLaTeX 作为默认程序来编译 LaTeX
+  (add-hook 'LaTeX-mode-hook
+            (lambda()
+              (add-to-list 'TeX-command-list
+                           '("XeLaTeX" "%`xelatex%(mode)%' %t" TeX-run-TeX nil t))
+              (setq TeX-command-default "XeLaTeX")
+              (setq TeX-save-query nil)
+              (setq TeX-show-compilation t)))
+  
+  :hook
+  (LaTeX-mode . auto-fill-mode)
+  (LaTeX-mode . flycheck-mode)
+  )
 
 
 
