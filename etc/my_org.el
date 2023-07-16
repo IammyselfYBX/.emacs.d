@@ -50,7 +50,10 @@
 					)))
    (setq prettify-symbols-unprettify-at-point t)
    (prettify-symbols-mode 1))
-  (setq org-src-window-setup 'curren0t-window) ;; 编写代码块时分割当前窗口
+
+  ;;(setq org-src-window-setup 'current-window) ;; 编写代码块时分割当前窗口
+  ;; 使用 M-x describe-variable org-src-window-setup 列出可以选的可能
+  (setq org-src-window-setup 'split-window-below)
   :custom
   (org-startup-with-inline-images t) ;; 自动显示图片
   ;;:bind
