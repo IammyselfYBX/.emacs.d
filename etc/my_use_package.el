@@ -319,7 +319,6 @@
 ;| C-c C-k | |TeX-kill-job ;; 取消编译                         ||
 ;| C-c C-v | |TeX-view ;; 打开 pdf viewer                      ||
 ;| C-c ;   | |TeX-comment-or-uncomment-region ;; 注释          ||
-
 (use-package tex
   :ensure auctex
   :config
@@ -350,13 +349,20 @@
               (setq TeX-command-default "XeLaTeX")
               (setq TeX-save-query nil)
               (setq TeX-show-compilation t)))
+  (add-hook 'LaTeX-mode-hook #'outline-minor-mode)
   
   :hook
   (LaTeX-mode . auto-fill-mode)
   (LaTeX-mode . flycheck-mode)
   )
 
-
+;;----------------------------------------------------------
+;; cdlatex
+(use-package cdlatex
+  :config
+    (add-hook 'LaTeX-mode-hook #'turn-on-cdlatex)   ; with AUCTeX LaTeX mode
+    (add-hook 'latex-mode-hook #'turn-on-cdlatex)   ; with Emacs latex mode
+    )
 
 ;;==========================================================
 ;; 补全/检查/智能
@@ -397,7 +403,8 @@
   ;;(push '(company-semantic :with company-yasnippet) company-backends)  ;; 将 company-semantic 和 company-yasnippet 后端添加到 company-backends 列表的末尾
   ;; 上一行有时不管用，就用下面的一行，让company 实现补全 yasnippet 等其他内容
   (add-to-list 'company-backends '(company-yasnippet company-lsp company-capf company-anaconda))
-  :hook ((after-init . global-company-mode))      ;; 打开emacs就启动
+  :hook
+  ((after-init . global-company-mode))      ;; 打开emacs就启动
   ;;:custom
   ;;(lsp-headerline-breadcrumb-enable t)
   ;;(lsp-headerline-breadcrumb-enable-symbol-numbers t)
