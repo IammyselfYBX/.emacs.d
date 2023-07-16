@@ -402,7 +402,7 @@
         company-begin-commands '(self-insert-command org-self-insert-command ))	;;设置在org-mode 模式下自动补全
   ;;(push '(company-semantic :with company-yasnippet) company-backends)  ;; 将 company-semantic 和 company-yasnippet 后端添加到 company-backends 列表的末尾
   ;; 上一行有时不管用，就用下面的一行，让company 实现补全 yasnippet 等其他内容
-  (add-to-list 'company-backends '(company-yasnippet company-lsp company-capf company-anaconda))
+  (add-to-list 'company-backends '(company-semantic company-yasnippet company-lsp company-capf company-anaconda))
   :hook
   ((after-init . global-company-mode))      ;; 打开emacs就启动
   ;;:custom
