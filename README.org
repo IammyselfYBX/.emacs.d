@@ -24,6 +24,11 @@ cd /mnt/texlive2023
 sudo ./install-tl
 #+end_src
 
+如果使用 AUCTex 的 Preview-latex 功能需要安装 ghostscript
+#+BEGIN_SRC bash
+sudo pacman -S ghostscript
+#+END_SRC
+
 *** org-mode
 **** pdftools
 pdftools 是一款用来看pdf的插件，需要提前安装
