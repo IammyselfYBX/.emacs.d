@@ -358,12 +358,20 @@
 
 ;;----------------------------------------------------------
 ;; cdlatex
+;; https://github.com/cdominik/cdlatex
+;; https://orgmode.org/manual/CDLaTeX-mode.html
 (use-package cdlatex
   :config
     (add-hook 'LaTeX-mode-hook #'turn-on-cdlatex)   ; with AUCTeX LaTeX mode
     (add-hook 'latex-mode-hook #'turn-on-cdlatex)   ; with Emacs latex mode
     )
-
+;;----------------------------------------------------------
+;; reftex
+(use-package reftex
+  :config
+  (add-hook 'LaTeX-mode-hook #'turn-on-reftex)   ; with AUCTeX LaTeX mode
+  (add-hook 'latex-mode-hook #'turn-on-reftex)   ; with Emacs latex mode
+  )
 ;;==========================================================
 ;; 补全/检查/智能
 ;;==========================================================
