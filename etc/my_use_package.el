@@ -349,12 +349,19 @@
               (setq TeX-command-default "XeLaTeX")
               (setq TeX-save-query nil)
               (setq TeX-show-compilation t)))
-  (add-hook 'LaTeX-mode-hook #'outline-minor-mode)
+
+  ;; 设置 outline-minor-mode
+  (add-hook 'LaTeX-mode-hook #'outline-minor-mode)  ;; 默认打开Latex 模式就是开启 outline-minor-mode
+  (add-hook 'LaTeX-mode-hook 'outline-hide-body)    ;; 默认打开Latex 模式 就全部折叠
   
   :hook
   (LaTeX-mode . auto-fill-mode)
   (LaTeX-mode . flycheck-mode)
+  
+  :bind-keymap
+  ("C-o" . outline-mode-prefix-map)                 ;; 将 outline-mode-prefix 的前置键从 "C-c @" 变成 "C-o"
   )
+
 
 ;;----------------------------------------------------------
 ;; cdlatex
