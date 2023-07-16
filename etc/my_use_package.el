@@ -349,6 +349,19 @@
               (setq TeX-command-default "XeLaTeX")
               (setq TeX-save-query nil)
               (setq TeX-show-compilation t)))
+  
+  ;; pdf 预览正向与逆向搜索
+  ;; zathura https://www.emacswiki.org/emacs/AUCTeX#h5o-23
+  ;;(add-hook 'LaTeX-mode-hook 'TeX-source-correlate-mode)
+  ;;(setq
+  ;; TeX-PDF-mode t
+  ;; TeX-source-correlate-mode t
+  ;; TeX-source-correlate-method (quote synctex))
+  ;;(setq TeX-view-program-list
+  ;;      '("Zathura"
+  ;;         ("zathura" " %o"
+  ;;         (mode-io-correlate " --synctex-forward %n:0:%b"))))
+  
 
   ;; 设置 outline-minor-mode
   (add-hook 'LaTeX-mode-hook #'outline-minor-mode)  ;; 默认打开Latex 模式就是开启 outline-minor-mode
