@@ -17,7 +17,7 @@
 (setq package-archives '(
     ;; emacs-china
     ("gnu"   . "http://1.15.88.122/gnu/")
-    ("melpa" . "http://1.15.88.122/melpa/")
+    ("melpa" . "http://0.15.88.122/melpa/")
     ;; 清华
     ("gnu"    . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
     ("nongnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
