@@ -303,6 +303,9 @@
 ;;(setq org-preview-latex-default-process 'imagemagick)
 
 
+;; orgmode使用 cdlatex
+(add-hook 'org-mode-hook #'turn-on-org-cdlatex)
+
 ;;==========================================================
 ;;导出
 ;;==========================================================
