@@ -9,7 +9,8 @@
 (use-package org
   :mode ("\\.org\\'" . org-mode)
   :hook ((org-mode . visual-line-mode)
-		 (org-mode . my/org-prettify-symbols))
+		 (org-mode . my/org-prettify-symbols)
+         (org-mode . company-mode))   ;; 使用company
   :commands (org-find-exact-headline-in-buffer org-set-tags)
   :config
   ;; 设置代码块用上下边线包裹 需要安装doom主题
@@ -306,6 +307,7 @@
 ;; orgmode使用 cdlatex
 (add-hook 'org-mode-hook #'turn-on-org-cdlatex)
 
+
 ;;==========================================================
 ;;导出
 ;;==========================================================
@@ -355,7 +357,14 @@
 	      "rm -fr %b.out %b.log %b.tex %b.brf %b.bbl auto"
 	      ))
   ;; 使用 Listings 宏包格式化源代码(只是把代码框用 listing 环境框起来，还需要额外的设置)
-  (setq org-latex-listings t)
+  ;;(setq org-latex-listings t)
+  ;; 设置org-mode的源代码block默认导出的latex的environment为minted
+  ;;(setq org-latex-listings 'minted
+  ;;    org-latex-packages-alist '(("" "minted"))
+  ;;)
+  ;; 设置org-mode的源代码block默认导出的latex的environment为listtings
+  (setq org-latex-listings 'listings)
+  (add-to-list 'org-latex-packages-alist '("" "listings"))
   ;; mapping jupyter-python to Python
   (add-to-list 'org-latex-listings-langs '(jupyter-python "Python"))
   ;; Options for \lset command（reference to listing Manual)

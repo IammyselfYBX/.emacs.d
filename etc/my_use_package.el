@@ -364,6 +364,7 @@
   
 
   ;; 设置 outline-minor-mode
+  ;; C-c @ 
   (add-hook 'LaTeX-mode-hook #'outline-minor-mode)  ;; 默认打开Latex 模式就是开启 outline-minor-mode
   (add-hook 'LaTeX-mode-hook 'outline-hide-body)    ;; 默认打开Latex 模式 就全部折叠
   
@@ -410,6 +411,7 @@
 ;;    https://company-mode.github.io/manual/Backends.html
 ;;  company-semantic 是根据语义补全的后端
 ;;  company-yasnippet 是根据 yasnippet 补全的后端
+;;  company-capf
 ;;  
 (use-package company
   :config
@@ -428,11 +430,13 @@
 	;;company-lsp-enable-snippet t              
         company-tooltip-offset-display 'scrollbar ;; 如果候选词比较多，以滚动条的形式显示 | 另一个选项是 (setq company-tooltip-offset-display 'lines) 就是全部显示
         company-begin-commands '(self-insert-command org-self-insert-command ))	;;设置在org-mode 模式下自动补全
-  ;;(push '(company-semantic :with company-yasnippet) company-backends)  ;; 将 company-semantic 和 company-yasnippet 后端添加到 company-backends 列表的末尾
+ ;; (push '(company-semantic :with company-yasnippet) company-backends)  ;; 将 company-semantic 和 company-yasnippet后端添加到 company-backends 列表的末尾
+  (push '(company-capf :with company-yasnippet) company-backends)  ;; 将 company-semantic 和 company-yasnippet 
   ;; 上一行有时不管用，就用下面的一行，让company 实现补全 yasnippet 等其他内容
-  (add-to-list 'company-backends '(company-semantic company-yasnippet company-lsp company-capf company-anaconda))
+  ;;(add-to-list 'company-backends '(company-semantic company-yasnippet company-lsp company-capf company-anaconda))
   :hook
   ((after-init . global-company-mode))      ;; 打开emacs就启动
+
   ;;:custom
   ;;(lsp-headerline-breadcrumb-enable t)
   ;;(lsp-headerline-breadcrumb-enable-symbol-numbers t)
