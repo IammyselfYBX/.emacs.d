@@ -344,7 +344,7 @@
                  ("\\chapter{%s}" . "\\chapter*{%s}")
                  ("\\section{%s}" . "\\section*{%s}")
                  ("\\subsection{%s}" . "\\subsection*{%s}")
-                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")))
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))))
   (setq org-latex-default-class "cn-article")
   (setq org-latex-image-default-height "0.9\\textheight"
         org-latex-image-default-width "\\linewidth")
@@ -366,21 +366,20 @@
   (setq org-latex-listings 'listings)
   (add-to-list 'org-latex-packages-alist '("" "listings"))
   ;; mapping jupyter-python to Python
-  (add-to-list 'org-latex-listings-langs '(jupyter-python "Python"))
+  ;;(add-to-list 'org-latex-listings-langs '(jupyter-python "Python"))
   ;; Options for \lset command（reference to listing Manual)
   (setq org-latex-listings-options
         '(
-          ("basicstyle" "\\small\\ttfamily")       ; 源代码字体样式
-          ("keywordstyle" "\\color{eminence}\\small")                 ; 关键词字体样式
+          ("basicstyle" "\\small\\ttfamily")                          ; 源代码字体样式
+          ("keywordstyle" "\\color{violet}\\small")                 ; 关键词字体样式
           ;; ("identifierstyle" "\\color{doc}\\small")
-          ("commentstyle" "\\color{commentgreen}\\small\\itshape")    ; 批注样式
-          ("stringstyle" "\\color{red}\\small")                       ; 字符串样式
+          ("commentstyle" "\\color{green}\\small\\itshape")    ; 批注样式
+          ("stringstyle" "\\color{red}\\small")              v          ; 字符串样式
           ("showstringspaces" "false")                                ; 字符串空格显示
-          ("numbers" "left")                                          ; 行号显示
-          ("numberstyle" "\\color{preprocess}")                       ; 行号样式
+          ("numbers" "left")                                          ; 行号左侧显示
+          ("numberstyle" "\\color{gray}")                       ; 行号样式
           ("stepnumber" "1")                                          ; 行号递增
-          ("xleftmargin" "2em")                                       ;
-          ;; ("backgroundcolor" "\\color{background}")                   ; 代码框背景色
+          ("xleftmargin" "1em")                                       ; 左空白是2em
           ("tabsize" "4")                                             ; TAB 等效空格数
           ("captionpos" "t")                                          ; 标题位置 top or buttom(t|b)
           ("breaklines" "true")                                       ; 自动断行
@@ -395,9 +394,9 @@
           ;; ("rulecolor" "\\color{background}")                         ; 框颜色
           ;; ("fillcolor" "\\color{white}")
           ;; ("rulesepcolor" "\\color{comdil}")
+          ;; ("backgroundcolor" "\\color{background}")                   ; 代码框背景色          
           ("framexleftmargin" "5mm")                                  ; let line numer inside frame
           ))
-  )
 ;配置org-export使用xelatex来做pdf的生成
 ;;(setq org-latex-compiler "xelatex")
 ;;(setq org-latex-pdf-process '("xelatex -interaction=nonstopmode %f")) ;; 执行xelatex 命令 -interaction=nonstopmode 告诉 TeX 引擎在不与用户交互的情况下运行，并尽可能“跳过”错误。

@@ -135,9 +135,10 @@
 ;; dashboard
 ;; https://github.com/emacs-dashboard/emacs-dashboard
 (use-package dashboard
-  :init
-  (dashboard-setup-startup-hook)
+  ;;:init
+  ;;(dashboard-mode 1)
   :config
+  (dashboard-setup-startup-hook)
   (setq dashboard-banner-logo-title "杨秉学的Emacs")
   (setq dashboard-init-info "This is YBX Emacs")
   (setq dashboard-footer-messages nil)
@@ -148,6 +149,8 @@
                         ;;(projects . 5)
                         (agenda . 5)))
   (setq dashboard-startup-banner nil)
+  (setq dashboard-set-init-info t) ;; 显示启动信息
+  ;;(add-hook 'dashboard-mode-hook 'dashboard-mode-map)
   ;(setq dashboard-startup-banner "~/.emacs.d/.dashboard_startup.png")
   )
 
@@ -280,7 +283,7 @@
   (setq pdf-annot-activate-created-annotations t)   ;; automatically annotate highlights 自动注释亮点
   ;;(define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward) ;; use normal isearch
   (setq native-comp-deferred-compilation-deny-list '(".*pdf.*")) ;; 禁用pdf-tools本地化编译
-  (linum-mode -1)
+  ;;(linum-mode -1)
   (setq pdf-view-use-scaling t)
   ;;:bind (:map pdf-view-mode-map
   ;;            ("<left>" . pdf-view-previous-page-command)

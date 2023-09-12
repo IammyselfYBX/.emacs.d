@@ -16,8 +16,8 @@
 ;; Package 是emacs 内置包，用来管理 ELPA 软件包
 (setq package-archives '(
     ;; emacs-china
-    ("gnu"   . "http://1.15.88.122/gnu/")
-    ("melpa" . "http://0.15.88.122/melpa/")
+    ;;("gnu"   . "http://1.15.88.122/gnu/")
+    ;;("melpa" . "http://0.15.88.122/melpa/")
     ;; 清华
     ("gnu"    . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
     ("nongnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
