@@ -329,6 +329,31 @@
   :defer t
   :config
   (add-to-list 'org-latex-default-packages-alist '("" "ctex" t ("xelatex"))) ;; 支持汉语
+;;  (add-to-list 'org-latex-classes
+;;               '("\\usepackage{titlesec}
+;;                 \\usepackage{titling}
+;;                 \\usepackage{fontspec} % packages for title and section-heading font setting.
+;;                 % Set Header and Numbering Depth
+;;                 \\setcounter{tocdepth}{6}
+;;                 \\setcounter{secnumdepth}{6}
+;;                 % Set formats for each heading level. 'sffamily' will point to the sans-serif font. In this case, 「楷体」.
+;;                % The `titlesec` package is used over here to make use of `\\paragraph` and `\\subparagraph` as headings. Up to five levels of headings can be implemented this way. 
+;;                \\titleformat{\\paragraph}
+;;                    {\\fontsize\\normalsize\\bfseries}{\\theparagraph}{1em}{} 
+;;                % New line after heading. (`\\paragraph` and `\\subparagraph` would not automatically generate a new line after the heading text. )
+;;                \\titlespacing*{\\paragraph}{\\parindent}{3.25ex plus 1ex minus .2ex}{.75ex plus .1ex}
+;;
+;;                \\titleformat{\\subparagraph}
+;;                    {\\fontsize{12}{14}\\bfseries}{\\thesubparagraph}{1em}{}
+;;                \\titlespacing*{\\subparagraph}{\\parindent}{3.25ex plus 1ex minus .2ex}{.75ex plus .1ex}
+;;
+;;                \\titleformat{\\subsubparagraph}
+;;                    {\\fontsize{12}{14}\\bfseries}{\\thesubsubparagraph}{1em}{}
+;;                \\titlespacing*{\\subsubparagraph}{\\parindent}{3.25ex plus 1ex minus .2ex}{.75ex plus .1ex}
+;;
+;;                \\linespread{1.1}
+;;                \\hypersetup{pdfborder=0 0 0}"))
+;;  
   (add-to-list 'org-latex-classes
                '("cn-article"
                  "\\documentclass[UTF8,a4paper]{article}"
@@ -337,7 +362,17 @@
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-
+  
+(add-to-list 'org-latex-classes
+           '("book-noparts"
+              "\\documentclass{book}"
+              ("\\chapter{%s}" . "\\chapter*{%s}")
+              ("\\section{%s}" . "\\section*{%s}")
+              ("\\subsection{%s}" . "\\subsection*{%s}")
+              ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+              ("\\paragraph{%s}" . "\\paragraph*{%s}")
+              ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+  
   (add-to-list 'org-latex-classes
                '("cn-report"
                  "\\documentclass[11pt,a4paper]{report}"
@@ -374,7 +409,7 @@
           ("keywordstyle" "\\color{violet}\\small")                 ; 关键词字体样式
           ;; ("identifierstyle" "\\color{doc}\\small")
           ("commentstyle" "\\color{green}\\small\\itshape")    ; 批注样式
-          ("stringstyle" "\\color{red}\\small")              v          ; 字符串样式
+          ("stringstyle" "\\color{red}\\small")                       ; 字符串样式
           ("showstringspaces" "false")                                ; 字符串空格显示
           ("numbers" "left")                                          ; 行号左侧显示
           ("numberstyle" "\\color{gray}")                       ; 行号样式
