@@ -52,7 +52,7 @@
   :custom
   (quelpa-git-clone-depth 1)
   (quelpa-update-melpa-p nil)
-  (quelpa-self-upgrade-p nil)
+  (quelpa-self-upgrade-p nil) ;; 控制了 quelpa 是否自动升级自身。设置为 nil 表示不自动升级 quelpa
   (quelpa-checkout-melpa-p nil))
 
 ;; `quelpa' 与 `use-package' 集成
@@ -158,7 +158,7 @@
 ;; keycast 显示emacs按键和执行函数
 ;; https://github.com/tarsius/keycast
 (use-package keycast
-  :init
+  ;;:init
   ;;(keycast-mode-line-mode )
   :config
   (setq keycast-mode-line-mode nil    ;; 初始化不打开 需要打开 M-x keycast-mode RET 
@@ -213,6 +213,12 @@
      (("C-=" . cnfonts-increase-fontsize)
       ("C--" . cnfonts-decrease-fontsize))
   )
+
+;; Directly modify when selecting text
+;; 选择文本输入时直接替换
+(use-package delsel
+  :ensure nil
+  :hook (after-init . delete-selection-mode))
 
 
 ;;==========================================================

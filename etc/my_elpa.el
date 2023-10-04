@@ -31,9 +31,11 @@
 ;;初始化包管理器
 (unless (bound-and-true-p package--initialized) ;; 除非我已经初始化了，否则进行初始化
   (package-initialize))                         ;; 刷新软件源索引
+
 ;;刷新软件源索引
 (unless package-archive-contents                ;; 除非我已经是最新的索引了，否则帮我刷新一下索引
-    (package-refresh-contents))
+  (package-refresh-contents))
+
 ;;每次都要检查是否有use-package，没有的话刷新软件源索引并且安装 use-package
 (unless (package-installed-p 'use-package)
    (package-refresh-contents)
