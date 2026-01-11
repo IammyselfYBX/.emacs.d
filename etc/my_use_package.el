@@ -139,7 +139,7 @@
   ;;(dashboard-mode 1)
   :config
   (dashboard-setup-startup-hook)
-  (setq dashboard-banner-logo-title "杨秉学的Emacs")
+  (setq dashboard-banner-logo-title "Iammyself的Emacs")
   (setq dashboard-init-info "This is YBX Emacs")
   (setq dashboard-footer-messages nil)
   (setq dashboard-set-navigator t)
@@ -148,7 +148,6 @@
                         (bookmarks . 5)
                         ;;(projects . 5)
                         (agenda . 5)))
-  (setq dashboard-startup-banner nil)
   (setq dashboard-set-init-info t) ;; 显示启动信息
   ;;(add-hook 'dashboard-mode-hook 'dashboard-mode-map)
   ;(setq dashboard-startup-banner "~/.emacs.d/.dashboard_startup.png")

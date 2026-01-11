@@ -236,7 +236,32 @@
 
 ;;----------------------------------------------------------
 ;; ob-ipython
-(use-package ob-ipython)
+;;  https://github.com/gregsexton/ob-ipython
+;;  https://github.com/gregsexton/ob-ipython/tree/master
+;; 首先将 Org-mode 目录加入到 load-path
+(add-to-list 'load-path (expand-file-name "my-package/Org-mode/ob-ipython" user-emacs-directory))
+;; 然后使用 use-package 加载 ob-ipython
+;;(use-package ob-ipython)
+;; 延迟加载
+;; use-package 默认提供延迟加载机制，只有在需要时才会真正加载包
+(use-package ob-ipython
+  ;; :ensure t  ; 如果是从 MELPA 安装，取消注释此行。因为我们是手动管理，所以不需要。
+  ;; :load-path "my-package/Org-mode/ob-ipython" ; 另一种指定路径的方式，但我们已经在 load-path 中添加了，所以可以省略
+  :commands (ob-ipython-inspect ob-ipython-completions) ; 延迟加载：当调用这些命令时才加载包
+  :hook (org-mode . (lambda ()
+                      ;; 确保在进入 org-mode 时，ipython 语言已准备好被调用
+                      ;; 这个钩子本身不会立即加载 ob-ipython，但当执行第一个 ipython 代码块时会触发加载
+                      ))
+  :init
+  ;; 可以在这里放置任何初始化代码，这些代码会在包加载前运行
+  ;; 例如，如果需要设置一些变量
+  ;; (setq some-ob-ipython-var t)
+  :config
+  ;; 可以在这里放置配置代码，这些代码只在包加载后运行
+  ;; 激活 ipython 在 Org-Babel 中的语言支持 (虽然 org-babel-do-load-languages 已处理)
+  ;; 也可以配置其他功能，比如公司模式补全
+  ;; (add-to-list 'company-backends 'company-ob-ipython)
+  )
 
 ;; 不再询问是否允许执行代码块
 (setq org-confirm-babel-evaluate nil)
